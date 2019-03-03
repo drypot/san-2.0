@@ -1,0 +1,14 @@
+#
+#  vio.mif
+#
+#  kyuhyun park
+#
+
+.path.cpp = ..\vio
+
+target_lib = $(vio_lib)
+
+obj_list = \
+   px_$(obj_dir)\vio.obj\
+   px_$(obj_dir)\textimg.obj\
+   px_$(obj_dir)\textbrd.obj\

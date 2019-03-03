@@ -1,0 +1,251 @@
+   1 : 
+   2 : 
+   3 : 
+   4 : 
+   5 : 
+   6 : 
+   7 : 
+   8 :                           44
+   9 :                          44
+  10 :                         44      DDDDDDD        OOOOO        SSSSSS
+  11 :                        44       DDDDDDDD      OOOOOOO      SSSSSSSS
+  12 :                       44  44    DD     DD    OO     OO    SS
+  13 :                      44   44    DD     DD    OO     OO    SS
+  14 :                     44    44    DD     DD    OO     OO     SSSSSS
+  15 :                    444444444    DD     DD    OO     OO      SSSSSS
+  16 :                     44444444    DD     DD    OO     OO           SS
+  17 :                           44    DD     DD    OO     OO           SS
+  18 :                           44    DDDDDDDD      OOOOOOO     SSSSSSSS
+  19 :                           44    DDDDDDD        OOOOO       SSSSSS
+  20 : 
+  21 : 
+  22 : 
+  23 : 
+  24 : 
+  25 : 
+  26 :                                       Version 5.0
+  27 : 
+  28 : 
+  29 : 
+  30 : 
+  31 :                           Introduction and Installation Guide
+  32 : 
+  33 : 
+  34 : 
+  35 : 
+  36 :                                       Developed By
+  37 :                                 Rex Conn and Tom Rawson
+  38 : 
+  39 :                                     Documentation By
+  40 :                        Hardin Brothers, Tom Rawson, and Rex Conn
+  41 : 
+  42 : 
+  43 : 
+  44 :                                       Published By
+  45 : 
+  46 :                                     JP Software Inc.
+  47 :                                      P.O. Box 1470
+  48 :                                 East Arlington, MA 02174
+  49 :                                          U.S.A.
+  50 : 
+  51 :                                      (617) 646-3975
+  52 :                                    fax (617) 646-0904
+  53 : 
+  54 : 
+  55 : 
+  56 : 
+  57 : 
+  58 :                                   ACKNOWLEDGMENTS
+  59 : 
+  60 : 
+  61 : 
+  62 :              We couldn't produce a product like 4DOS without the dedication
+  63 :              and quality work of many people.  Our thanks to:
+  64 : 
+  65 :                   JP Software Staff:  Mike Bessy, Helen Coyne, Ellen Stone,
+  66 :                   Marcella Turner, Misty White.
+  67 : 
+  68 :                   Online Support:  Brian Miller and Tess Heder of Channel 1
+  69 :                   BBS; Don Watkins of CompuServe's IBMNET.
+  70 : 
+  71 :                   Help System:  Scott McGrath and Ross Neilson Wentworth.
+  72 : 
+  73 :                   Beta Test Support:  David Moskowitz, Guy Scharf, and
+  74 :                   Martin Schiff, of CompuServe's CONSULT forum.
+  75 : 
+  76 :                   Beta Testers:  We can't list all of our beta testers
+  77 :                   here!  A special thanks to all of you who helped make
+  78 :                   4DOS elegant, reliable, and friendly.
+  79 : 
+  80 : 
+  81 :              The following tools are used in creating and maintaining 4DOS:
+  82 : 
+  83 :                   Compilers:      Microsoft C, Microsoft Macro Assembler,
+  84 :                                   Borland Turbo Pascal
+  85 :                   Libraries:      Spontaneous Assembly (Base Two
+  86 :                                   Development), Turbo Professional (Turbo
+  87 :                                   Power Software)
+  88 :                   Editors:        Edix (Emerging Technology), Brief
+  89 :                                   (Solution Systems)
+  90 :                   Debuggers:      Periscope (The Periscope Company), Soft-
+  91 :                                   ICE (Nu-Mega Technologies)
+  92 :                   Version Control:PVCS (Sage Software)
+  93 :                   Documentation:  Microsoft Word for Windows with Adobe
+  94 :                                   Type Manager
+  95 : 
+  96 :              Program and Documentation Copyright c 1988 - 1993, JP Software
+  97 :              Inc., All Rights Reserved.  4DOS is a registered trademark and
+  98 :              4OS2 and JP Software are trademarks of JP Software Inc.  Other
+  99 :              product and company names are trademarks of their respective
+ 100 :              owners.
+ 101 : 
+ 102 :                                                                       11-93
+ 103 : 
+ 104 :                                                                    CONTENTS
+ 105 :         -------------------------------------------------------------------
+ 106 : 
+ 107 : 
+ 108 :         CONTENTS
+ 109 : 
+ 110 : 
+ 111 :         Introduction...............................................1
+ 112 :             How to Use This Manual.................................2
+ 113 :             Customer Service and Technical Support.................3
+ 114 : 
+ 115 :         Chapter 1 / Installation...................................4
+ 116 :             Preparing for Installation Under DOS...................4
+ 117 :             Preparing for Installation Under OS/2..................5
+ 118 :             Automated Installation.................................6
+ 119 :             Manual Installation....................................7
+ 120 :             Uninstalling 4DOS......................................8
+ 121 : 
+ 122 :         Chapter 2 / Configuration.................................10
+ 123 :             Configuration Files...................................10
+ 124 :             Setting Up CONFIG.SYS.................................11
+ 125 :                 4DOS and Multiple-Configuration Utilities.........14
+ 126 :                 4DOS and DOS 2....................................14
+ 127 :             Startup Options for Secondary Shells..................15
+ 128 :             Using AUTOEXEC.BAT, 4START, and 4EXIT.................16
+ 129 :             COMSPEC and the COMSPEC Path..........................17
+ 130 :             4DOS Swapping Methods.................................18
+ 131 :             4DOS Help.............................................19
+ 132 :                 Configuring the Help System.......................21
+ 133 : 
+ 134 :         Chapter 3 / 4DOS and Your Hardware and Software...........23
+ 135 :             The CPU...............................................23
+ 136 :             Memory................................................24
+ 137 :                 Upper Memory Blocks (UMBs)........................27
+ 138 :             Video.................................................29
+ 139 :             Hard Drives and Floppy Disks..........................31
+ 140 :             4DOS and DOS..........................................32
+ 141 :                 Menus and SET Commands in CONFIG.SYS..............32
+ 142 :                 Novell DOS / DR DOS...............................33
+ 143 :             Using 4DOS with Task Switchers and Multitaskers.......34
+ 144 :                 Creating a 4DOS Window............................35
+ 145 :                 Parameters for 4DOS Windows.......................35
+ 146 :                 Multitasking and KEYSTACK.........................37
+ 147 :                 Multitasking and Disk Swapping....................37
+ 148 :                 4DOS and Microsoft Windows........................37
+ 149 :             Using 4DOS on a Network...............................39
+ 150 :                 4DOS and Novell Netware...........................40
+ 151 : 
+ 152 :         Chapter 4 / Using 4DOS Under OS/2.........................42
+ 153 :             OS/2 Version 1.x......................................43
+ 154 :             OS/2 Version 2.x......................................43
+ 155 :                 Settings for DOS Sessions.........................44
+ 156 :                 Configuring DOS Sessions for 4DOS.................45
+ 157 : 
+ 158 :         -------------------------------------------------------------------
+ 159 :         Copr. 1993 JP Software Inc.    4DOS Intro. & Installation Guide / i
+ 160 : 
+ 161 :                                                                    CONTENTS
+ 162 :         -------------------------------------------------------------------
+ 163 : 
+ 164 :                 4DOS.INI..........................................47
+ 165 :                 AUTOEXEC.BAT, 4START, and 4EXIT...................48
+ 166 :             "Temporary" VDMs......................................48
+ 167 :             Configuring 4DOS for Dual Boot and Boot Manager.......49
+ 168 :                 CONFIG.SYS........................................50
+ 169 :                 AUTOEXEC.BAT......................................50
+ 170 :                 4DOS.INI, 4START, and 4EXIT.......................51
+ 171 : 
+ 172 :         Appendix A / Solving Software Compatibility Problems......53
+ 173 :             Path Length...........................................54
+ 174 :             Environment Size......................................55
+ 175 :             Testing for Interactions..............................55
+ 176 :             Memory Allocation Conflicts...........................57
+ 177 :                 Memory Allocation and Microsoft Windows...........58
+ 178 :             Advanced Configuration Options........................59
+ 179 : 
+ 180 :         Appendix B / Technical Information........................61
+ 181 :             Detecting 4DOS........................................61
+ 182 :             Placing Keystrokes Into the Keystack..................62
+ 183 :             Writing Installable Commands..........................63
+ 184 :             Using DESCRIPT.ION....................................64
+ 185 :             Interrupt 2E..........................................65
+ 186 : 
+ 187 :         Index.....................................................68
+ 188 : 
+ 189 : 
+ 190 : 
+ 191 : 
+ 192 : 
+ 193 : 
+ 194 : 
+ 195 : 
+ 196 : 
+ 197 : 
+ 198 : 
+ 199 : 
+ 200 : 
+ 201 : 
+ 202 : 
+ 203 : 
+ 204 : 
+ 205 : 
+ 206 : 
+ 207 : 
+ 208 : 
+ 209 : 
+ 210 : 
+ 211 : 
+ 212 : 
+ 213 : 
+ 214 : 
+ 215 :         -------------------------------------------------------------------
+ 216 :         Copr. 1993 JP Software Inc.   4DOS Intro. & Installation Guide / ii
+ 217 : 
+ 218 :                                                                INTRODUCTION
+ 219 :         -------------------------------------------------------------------
+ 220 : 
+ 221 : 
+ 222 :         INTRODUCTION
+ 223 : 
+ 224 : 
+ 225 :         Welcome, and thanks for purchasing 4DOS!
+ 226 : 
+ 227 :         We started developing 4DOS when we realized that our computers
+ 228 :         could be a lot more powerful and a lot more helpful than they were.
+ 229 :         Whether you are a computer novice or an experienced power user, we
+ 230 :         think that 4DOS will help you get the most out of your IBM PC or
+ 231 :         compatible computer.
+ 232 : 
+ 233 :         Technically, 4DOS is a command interpreter or "DOS Shell."  That
+ 234 :         means that it reacts to the commands you type at the C:\> prompt.
+ 235 :         We've designed 4DOS so that you don't have to change your computing
+ 236 :         habits or unlearn anything to use it.  If you know how to display a
+ 237 :         directory, copy a file, or start an application program, you
+ 238 :         already know how to use 4DOS.  4DOS understands all of the commands
+ 239 :         you know and adds to them.  Its purpose is to make DOS friendlier,
+ 240 :         easier to use, and much more powerful and versatile, without
+ 241 :         requiring you to use or learn a new program, a new set of commands,
+ 242 :         or a new style of work.
+ 243 : 
+ 244 :         You can use 4DOS with all versions of MS-DOS and PC-DOS from 2.0
+ 245 :         through 6.2 and above.  You can also use it with all versions of
+ 246 :         Novell DOS and DR DOS (an older name for the same product) from 3.4
+ 247 :         through 7.0 and above, and in DOS sessions started under OS/2 1.x
+ 248 :         or 2.x and Windows 3.0 or 3.1.
+ 249 : 
+ 250 :         Once you have 4DOS installed, you can learn its new features at
+ 251 :         your own pace.  It has more than 50 new commands and h

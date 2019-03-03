@@ -1,0 +1,1522 @@
+                                                                                                                        /*
+--------------------------------------------------------------------------------
+   strdlg.mac
+
+   Kyuhyun Park
+
+   1994.11.21
+   1995.01.12  10.18
+--------------------------------------------------------------------------------                                        */
+
+   OK
+   Cancel
+
+   CursorLeft
+   CursorRight
+   CursorHome
+   CursorEnd
+
+   CursorLeftAcc
+   CursorRightAcc
+
+   InsertOn
+   InsertOff
+   InsertInq
+
+   MetaCodePageNext
+
+   CoderDiscard
+   CoderComplete
+   CoderMixingInq
+
+   CharDelete
+   CharErase
+   WordDelete
+   LineDelete
+   LineDeleteRest
+   SpcDialog
+   HanjaDialog
+   LineHeadInq
+
+%%
+
+   MacOK
+   {
+      CoderComplete();
+      OK();
+   }
+
+   MacCancel
+   {
+      CoderComplete();
+      Cancel();
+   }
+
+   MacCursorLeft
+   {
+      CoderComplete();
+      CursorLeft();
+   }
+
+   MacCursorRight
+   {
+      CoderComplete();
+      CursorRight();
+   }
+
+   MacCursorHome
+   {
+      CoderComplete();
+      CursorHome();
+   }
+
+   MacCursorEnd
+   {
+      CoderComplete();
+      CursorEnd();
+   }
+
+   MacCursorLeftAcc
+   {
+      CoderComplete();
+      CursorLeftAcc();
+   }
+
+   MacCursorRightAcc
+   {
+      CoderComplete();
+      CursorRightAcc();
+   }
+
+   MacInsertToggle
+   {
+      CoderComplete();
+      if (InsertInq()) InsertOff();
+      else InsertOn();
+   }
+
+   MacMetaCodePageNext
+   {
+      CoderComplete();
+      MetaCodePageNext();
+   }
+
+
+   MacCharDeletePrev
+   {
+      if (CoderMixingInq())
+      {
+         CoderDiscard();
+         return;
+      }
+
+      CoderComplete();
+      if (!LineHeadInq())
+      {
+         CursorLeft();
+         if (InsertInq()) CharDelete();
+         else CharErase();
+      }
+   }
+
+   MacCharDeleteNext
+   {
+      CoderComplete();
+      CharDelete();
+   }
+
+   MacWordDeleteNext
+   {
+      CoderComplete();
+      WordDelete();
+   }
+
+   MacLineDelete
+   {
+      CoderComplete();
+      LineDelete();
+   }
+
+   MacLineDeleteRest
+   {
+      CoderComplete();
+      LineDeleteRest();
+   }
+
+   MacSpcDialog
+   {
+      CoderComplete();
+      SpcDialog();
+   }
+
+   Machanja_box
+   {
+      if (CoderMixingInq())
+      {
+         CoderComplete();
+         CursorLeft();
+      }
+      HanjaDialog();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      task
+   --------------------------------------------------------------------------------                                        */
+
+   task_job_finish
+   {
+      if (block_markingInq())
+      {
+         block_markingOff();
+      }
+      shift_actionOff();
+   }
+
+   task_open_common
+   {
+      task_job_finish();
+      task_open();
+   }
+
+   task_iterate_save_call_back
+   {
+      if (file_modifiedInq())
+      {
+         file_save();
+         //undo_buffer_reset();
+      }
+   }
+
+   Mactask_open
+   {
+      CoderComplete();
+      task_open_common();
+   }
+
+   Mactask_open_file
+   {
+      CoderComplete();
+      task_open_common();
+      if (!file_load()) task_discard();
+   }
+
+   Mactask_open_pick_list
+   {
+      CoderComplete();
+      task_open_common();
+      if (!file_load_pick_list()) task_discard();
+   }
+
+   Macfile_save
+   {
+      CoderComplete();
+      file_save();
+      //undo_buffer_reset();
+   }
+
+   Macfile_save_all
+   {
+      CoderComplete();
+      task_iterate(task_iterate_save_call_back);
+   }
+
+   Macfile_name
+   {
+      CoderComplete();
+      file_name();
+   }
+
+   Mactask_close
+   {
+      CoderComplete();
+      task_close();
+   }
+
+   Mactask_close_all
+   {
+      CoderComplete();
+      task_close_all();
+   }
+
+   Mactask_discard
+   {
+      CoderComplete();
+      task_discard();
+   }
+
+   Mactask_Prev
+   {
+      CoderComplete();
+      task_job_finish();
+      task_Prev();
+   }
+
+   Mactask_Next
+   {
+      CoderComplete();
+      task_job_finish();
+      task_Next();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      focus
+   --------------------------------------------------------------------------------                                        */
+
+   focus_far_move_common
+   {
+      CoderComplete();
+      mark_Prev();
+   }
+
+   focus_WordPrev
+   {
+      focus_non_Wordskip_Prev();
+      focus_Wordskip_Prev();
+   }
+
+   focus_WordNext
+   {
+      focus_Wordskip_Next();
+      focus_non_Wordskip_Next();
+   }
+
+   focus_Linebegin_advanced
+   {
+      focus_column(1);
+      Cursorpos_adjust();
+      focus_Linebegin();
+   }
+
+   focus_non_empty_Lineskip_Prev
+   {
+      if (focus_LinePrev())
+      {
+         while (!LineemptyInq() && !focus_first_lineInq()) focus_LinePrev();
+         if (LineemptyInq()) focus_LineNext();
+      }
+   }
+
+   focus_non_empty_Lineskip_Next
+   {
+      while (!LineemptyInq() && !focus_last_lineInq()) focus_LineNext();
+   }
+
+   focus_empty_Lineskip_Prev
+   {
+      if (focus_LinePrev())
+      {
+         while (LineemptyInq() && !focus_first_lineInq()) focus_LinePrev();
+         if (!LineemptyInq()) focus_LineNext();
+      }
+   }
+
+   focus_empty_Lineskip_Next
+   {
+      while (LineemptyInq() && !focus_last_lineInq()) focus_LineNext();
+   }
+
+   focus_para_Prev
+   {
+      focus_empty_Lineskip_Prev();
+      focus_non_empty_Lineskip_Prev();
+   }
+
+   focus_para_Next
+   {
+      focus_non_empty_Lineskip_Next();
+      focus_empty_Lineskip_Next();
+   }
+
+   Macfocus_CharPrev
+   {
+      CoderComplete();
+      focus_CharPrev();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_CharNext
+   {
+      CoderComplete();
+      focus_CharNext();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_LinePrev
+   {
+      CoderComplete();
+      focus_LinePrev();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_LineNext
+   {
+      CoderComplete();
+      focus_LineNext();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_page_Prev
+   {
+      focus_far_move_common();
+      focus_page_Prev();
+      window_pos_adjust();
+   }
+
+   Macfocus_page_Next
+   {
+      focus_far_move_common();
+      focus_page_Next();
+      window_pos_adjust();
+   }
+
+   Macfocus_Linebegin
+   {
+      focus_far_move_common();
+      focus_Linebegin_advanced();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_LineEnd
+   {
+      focus_far_move_common();
+      focus_LineEnd();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_file_begin
+   {
+      focus_far_move_common();
+      focus_file_begin();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_file_End
+   {
+      focus_far_move_common();
+      focus_file_End();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_block_begin
+   {
+      focus_far_move_common();
+      focus_block_begin();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_block_End
+   {
+      focus_far_move_common();
+      focus_block_End();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_WordPrev
+   {
+      focus_far_move_common();
+      if (Linespace_tillInq())
+      {
+         if (focus_first_lineInq()) return;
+         focus_LinePrev();
+         focus_LineEnd();
+      }
+      else focus_WordPrev();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_WordNext
+   {
+      focus_far_move_common();
+      if (Linespace_fromInq())
+      {
+         if (focus_last_lineInq()) return;
+         focus_LineNext();
+         focus_Linebegin_advanced();
+      }
+      else focus_WordNext();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_para_Prev
+   {
+      focus_far_move_common();
+      focus_para_Prev();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_para_Next
+   {
+      focus_far_move_common();
+      focus_para_Next();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_window_top
+   {
+      focus_far_move_common();
+      focus_window_top();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_window_mid
+   {
+      focus_far_move_common();
+      focus_window_mid();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_window_bottom
+   {
+      focus_far_move_common();
+      focus_window_bottom();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_Lineindirect
+   {
+      focus_far_move_common();
+      focus_Lineindirect();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_column_indirect
+   {
+      focus_far_move_common();
+      focus_column_indirect();
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_0
+   {
+      focus_far_move_common();
+      focus_mark(0);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_1
+   {
+      focus_far_move_common();
+      focus_mark(1);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_2
+   {
+      focus_far_move_common();
+      focus_mark(2);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_3
+   {
+      focus_far_move_common();
+      focus_mark(3);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_4
+   {
+      focus_far_move_common();
+      focus_mark(4);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_5
+   {
+      focus_far_move_common();
+      focus_mark(5);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_6
+   {
+      focus_far_move_common();
+      focus_mark(6);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_7
+   {
+      focus_far_move_common();
+      focus_mark(7);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_8
+   {
+      focus_far_move_common();
+      focus_mark(8);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_9
+   {
+      focus_far_move_common();
+      focus_mark(9);
+      Cursorpos_adjust();
+   }
+
+   Macfocus_mark_Prev
+   {
+      CoderComplete();
+      focus_mark_Prev();
+      Cursorpos_adjust();
+   }
+
+   Macwindow_scroll_Up
+   {
+      CoderComplete();
+      if (focus_window_bottomInq())
+      {
+         if (window_scroll_Up()) focus_LinePrev();
+      } else window_scroll_Up();
+      Cursorpos_adjust();
+   }
+
+   Macwindow_scroll_Down
+   {
+      CoderComplete();
+      if (focus_window_topInq())
+      {
+         if (window_scroll_Down()) focus_LineNext();
+      } else window_scroll_Down();
+      Cursorpos_adjust();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      mark
+   --------------------------------------------------------------------------------                                        */
+
+   Macmark_0
+   {
+      CoderComplete();
+      mark(0);
+   }
+
+   Macmark_1
+   {
+      CoderComplete();
+      mark(1);
+   }
+
+   Macmark_2
+   {
+      CoderComplete();
+      mark(2);
+   }
+
+   Macmark_3
+   {
+      CoderComplete();
+      mark(3);
+   }
+
+   Macmark_4
+   {
+      CoderComplete();
+      mark(4);
+   }
+
+   Macmark_5
+   {
+      CoderComplete();
+      mark(5);
+   }
+
+   Macmark_6
+   {
+      CoderComplete();
+      mark(6);
+   }
+
+   Macmark_7
+   {
+      CoderComplete();
+      mark(7);
+   }
+
+   Macmark_8
+   {
+      CoderComplete();
+      mark(8);
+   }
+
+   Macmark_9
+   {
+      CoderComplete();
+      mark(9);
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      edition
+   --------------------------------------------------------------------------------                                        */
+
+   Linejoin_Up
+   {
+      if (!focus_first_lineInq())
+      {
+         focus_LinePrev();
+         focus_LineEnd();
+         Linejoin();
+      }
+   }
+
+   space_DeleteNext
+   {
+      hiden_block_begin();
+      focus_space_skip_Next();
+      hiden_block_End();
+      hiden_block_Delete();
+   }
+
+   CharDeletePrev
+   {
+      if (focus_CharPrev())
+      {
+         if (InsertInq()) CharDelete();
+         else CharErase();
+      }
+   }
+
+   LineDeleteRest
+   {
+      if (!focus_LineoutInq())
+      {
+         hiden_block_begin();
+         focus_LineEnd();
+         hiden_block_End();
+         hiden_block_Delete();
+      }
+   }
+
+   Lineerase
+   {
+      focus_column(1);
+      LineDeleteRest();
+   }
+
+   Mactype_in_literal
+   {
+      CoderComplete();
+      type_in_literal();
+      Cursorpos_adjust();
+   }
+
+   Mactype_in_special
+   {
+      CoderComplete();
+      type_in_special();
+      Cursorpos_adjust();
+   }
+
+   Mactype_in_hanja
+   {
+      if (CoderMixingInq())
+      {
+         CoderComplete();
+         focus_CharPrev();
+      }
+      type_in_hanja();
+      Cursorpos_adjust();
+   }
+
+   MacCharDeletePrev
+   {
+      if (CoderMixingInq())
+      {
+         CoderDiscard();
+         return;
+      }
+
+      CoderComplete();
+      if (focus_columnOneInq())
+      {
+         Linejoin_Up();
+      }
+      else if (smart_tabInq() && (LineemptyInq() || focus_LineheadInq()))
+      {
+         Lineunindent();
+      }
+      else CharDeletePrev();
+      Cursorpos_adjust();
+   }
+
+   MacCharDeleteNext
+   {
+      CoderComplete();
+      if (focus_LineoutInq())
+      {
+         Linejoin();
+         space_DeleteNext();
+      }
+      else CharDelete();
+      Cursorpos_adjust();
+   }
+
+   MacWordDeleteNext
+   {
+      CoderComplete();
+      if (focus_LineoutInq())
+      {
+         Linejoin();
+         space_DeleteNext();
+      }
+      else
+      {
+         hiden_block_begin();
+         focus_WordNext();
+         hiden_block_End();
+         hiden_block_Delete();
+      }
+      Cursorpos_adjust();
+   }
+
+   MacLineDelete
+   {
+      CoderComplete();
+      if (focus_last_lineInq())
+      {
+         /*if (focus_LinePrev()) LineDeletebelow();
+         else*/ Lineerase();
+      }
+      else LineDelete();
+      Cursorpos_adjust();
+   }
+
+   MacLineDeleteRest
+   {
+      CoderComplete();
+      LineDeleteRest();
+   }
+
+   MacLinespilt
+   {
+      CoderComplete();
+      Linespilt();
+   }
+
+   MacLinejoin
+   {
+      CoderComplete();
+      if (focus_LineoutInq())
+      {
+         Linejoin();
+         space_DeleteNext();
+         if (!focus_LineoutInq())
+         {
+            type_in_string (" ");
+            focus_CharPrev();
+         }
+      }
+      else
+      {
+         mark_tmp();
+         focus_LineEnd();
+         Linejoin();
+         space_DeleteNext();
+         if (!focus_LineoutInq()) type_in_string (" ");
+         focus_mark_tmp();
+      }
+   }
+
+   MacOK
+   {
+      CoderComplete();
+      if (InsertInq())
+      {
+         Linespilt();
+         focus_column(1);
+         focus_LineNext();
+         Cursorpos_adjust();
+         space_DeleteNext();
+         if (indentInq()) Linealign_Prev();
+      }
+      else
+      {
+         focus_LineNext();
+         if (indentInq()) focus_Linebegin_advanced();
+         else focus_column(1);
+      }
+      Cursorpos_adjust();
+   }
+
+   Mactab_forward
+   {
+      CoderComplete();
+      if (smart_tabInq()) Lineindent();
+      else type_in_string ("\t");
+      Cursorpos_adjust();
+   }
+
+   Mactab_backward
+   {
+      CoderComplete();
+      if (smart_tabInq()) Lineunindent();
+      else CharDeletePrev();
+      Cursorpos_adjust();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      block
+   --------------------------------------------------------------------------------                                        */
+
+   block_reset
+   {
+      block_showOff();
+      block_markingOff();
+      shift_actionOff();
+   }
+
+   block_marking_common
+   {
+      if (block_markingInq())
+      {
+         block_markingOff();
+      }
+      else if (block_showInq() && !focus_in_blockInq())
+      {
+         block_expand();
+      }
+      else
+      {
+         shift_actionOff();
+         block_showOff();
+
+         block_inclusiveOn();
+         block_markingOn();
+         block_showOn();
+      }
+   }
+
+   block_mark_para
+   {
+      block_reset();
+      block_type_line();
+      block_inclusiveOn();
+
+      mark_tmp();
+      focus_non_empty_Lineskip_Prev();
+      block_begin();
+      focus_non_empty_Lineskip_Next();
+      if (LineemptyInq()) focus_LinePrev();
+      block_End();
+      focus_mark_tmp();
+
+      block_showOn();
+   }
+
+   block_arrange
+   {
+      if (block_showInq())
+      {
+         block_markingOff();
+         block_type_line();
+
+         mark_tmp();
+         focus_block_begin();
+         LineInsert();
+         buffer1_read_block_arranging();
+         block_Delete();
+         buffer1_write_block();
+         buffer1_reset();
+         LineDelete();
+         focus_mark_tmp();
+      }
+   }
+
+   Macblock_mark_begin
+   {
+      CoderComplete();
+      block_reset();
+      block_type_Char();
+      block_inclusiveOff();
+
+      block_begin();
+
+      block_showOn();
+   }
+
+   Macblock_mark_End
+   {
+      CoderComplete();
+      block_reset();
+      block_type_Char();
+      block_inclusiveOff();
+      block_End();
+
+      block_showOn();
+   }
+
+   Macblock_mark_word
+   {
+      CoderComplete();
+      block_reset();
+      block_type_Char();
+      block_inclusiveOff();
+
+      mark_tmp();
+      focus_Wordskip_Prev();
+      block_begin();
+      focus_Wordskip_Next();
+      block_End();
+      focus_mark_tmp();
+
+      block_showOn();
+   }
+
+   Macblock_mark_para
+   {
+      CoderComplete();
+      block_mark_para();
+   }
+
+   Macblock_marking_Char
+   {
+      CoderComplete();
+      block_type_Char();
+      block_marking_common();
+   }
+
+   Macblock_marking_line
+   {
+      CoderComplete();
+      block_type_line();
+      block_marking_common();
+   }
+
+   Macblock_marking_column
+   {
+      CoderComplete();
+      block_type_column();
+      block_marking_common();
+   }
+
+   Macblock_showToggle
+   {
+      CoderComplete();
+      if (block_showInq()) block_reset();
+      else block_showOn();
+   }
+
+   Macblock_copy
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         buffer1_read_block();
+         buffer1_write_block();
+         buffer1_reset();
+      }
+   }
+
+   Macblock_move
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         buffer1_read_block();
+         block_Delete();
+         buffer1_write_block();
+         buffer1_reset();
+         Cursorpos_adjust();
+      }
+   }
+
+   Macblock_Delete
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         block_Delete();
+         block_reset();
+         Cursorpos_adjust();
+      }
+   }
+
+   Macblock_erase_line
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         block_erase_line();
+      }
+   }
+
+   Macblock_erase_Char
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         block_erase_Char();
+      }
+   }
+
+   Macblock_shift_Right
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         block_type_line();
+         block_shift_Right();
+      }
+      Cursorpos_adjust();
+   }
+
+   Macblock_shift_Left
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         block_type_line();
+         block_shift_Left();
+      }
+      Cursorpos_adjust();
+   }
+
+   Macblock_tab_Insert
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         block_type_line();
+         block_tab_Insert();
+      }
+      Cursorpos_adjust();
+   }
+
+   Macblock_tab_Delete
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         block_type_line();
+         block_tab_Delete();
+      }
+      Cursorpos_adjust();
+   }
+
+   Macblock_read
+   {
+      CoderComplete();
+      if (buffer1_read_file())
+      {
+         block_reset();
+         buffer1_write_block();
+         buffer1_reset();
+         block_showOn();
+         Cursorpos_adjust();
+      }
+   }
+
+   Macblock_write
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         block_markingOff();
+         buffer1_read_block();
+         buffer1_write_file();
+         buffer1_reset();
+      }
+   }
+
+   Macblock_arrange
+   {
+      CoderComplete();
+      block_arrange();
+      Cursorpos_adjust();
+   }
+
+   Macblock_arrange_para
+   {
+      CoderComplete();
+      block_mark_para();
+      block_arrange();
+      focus_para_Next();
+      Cursorpos_adjust();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      clipboard
+   --------------------------------------------------------------------------------                                        */
+
+   Macclip_copy
+   {
+      CoderComplete();
+      if (block_showInq()) buffer2_read_block();
+   }
+
+   Macclip_paste
+   {
+      CoderComplete();
+      block_reset();
+      buffer2_write_block();
+      block_showOn();
+   }
+
+   Macclip_cut
+   {
+      CoderComplete();
+      if (block_showInq())
+      {
+         buffer2_read_block();
+         block_Delete();
+         block_reset();
+         Cursorpos_adjust();
+      }
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      shift block marking
+   --------------------------------------------------------------------------------                                        */
+
+   shift_mark_ing
+   {
+      CoderComplete();
+      if (!shift_actionInq())
+      {
+         block_type_Char();
+         shift_actionOn();
+         block_markingOn();
+         block_showOn();
+         block_inclusiveOff();
+      }
+   }
+
+   Macshift_mark_End
+   {
+      if (shift_actionInq())
+      {
+         CoderComplete();
+         shift_actionOff();
+         block_markingOff();
+      }
+   }
+
+   Macshift_mark_CharPrev
+   {
+      shift_mark_ing();
+      if (focus_CharPrev()) Cursorpos_adjust();
+   }
+
+   Macshift_mark_CharNext
+   {
+      shift_mark_ing();
+      if (focus_CharNext()) Cursorpos_adjust();
+   }
+
+   Macshift_mark_LinePrev
+   {
+      shift_mark_ing();
+      if (focus_LinePrev()) Cursorpos_adjust();
+   }
+
+   Macshift_mark_LineNext
+   {
+      shift_mark_ing();
+      if (focus_LineNext()) Cursorpos_adjust();
+   }
+
+   Macshift_mark_WordPrev
+   {
+      shift_mark_ing();
+      focus_WordPrev();
+      Cursorpos_adjust();
+   }
+
+   Macshift_mark_WordNext
+   {
+      shift_mark_ing();
+      focus_WordNext();
+      Cursorpos_adjust();
+   }
+
+   Macshift_mark_page_Prev
+   {
+      shift_mark_ing();
+      if (focus_page_Prev()) window_pos_adjust();
+   }
+
+   Macshift_mark_page_Next
+   {
+      shift_mark_ing();
+      if (focus_page_Next()) window_pos_adjust();
+   }
+
+   Macshift_mark_Linebegin
+   {
+      shift_mark_ing();
+      if (focus_Linebegin()) Cursorpos_adjust();
+   }
+
+   Macshift_mark_LineEnd
+   {
+      shift_mark_ing();
+      if (focus_LineEnd()) Cursorpos_adjust();
+   }
+
+   Macshift_mark_file_begin
+   {
+      shift_mark_ing();
+      if (focus_file_begin()) Cursorpos_adjust();
+   }
+
+   Macshift_mark_file_End
+   {
+      shift_mark_ing();
+      if (focus_file_End()) Cursorpos_adjust();
+   }
+
+   Macshift_mark_window_top
+   {
+      shift_mark_ing();
+      if (focus_window_top()) Cursorpos_adjust();
+   }
+
+   Macshift_mark_window_bottom
+   {
+      shift_mark_ing();
+      if (focus_window_bottom()) Cursorpos_adjust();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      status
+   --------------------------------------------------------------------------------                                        */
+
+   Machangul_code_Next
+   {
+      CoderComplete();
+      if (hangul_code_fixedInq()) hangul_code_combi();
+      else hangul_code_fixed();
+   }
+
+   MacindentToggle
+   {
+      CoderComplete();
+      if (indentInq()) indentOff();
+      else indentOn();
+   }
+
+   MacunindentToggle
+   {
+      CoderComplete();
+      if (unindentInq()) unindentOff();
+      else unindentOn();
+   }
+
+   Macsmart_tabToggle
+   {
+      CoderComplete();
+      if (smart_tabInq()) smart_tabOff();
+      else smart_tabOn();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      undo/redo
+   --------------------------------------------------------------------------------                                        */
+
+   Macundo
+   {
+      if (CoderComplete()) undo();
+      undo();
+      Cursorpos_adjust();
+   }
+
+   Macredo
+   {
+      CoderComplete();
+      redo();
+      Cursorpos_adjust();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      find / replace
+   --------------------------------------------------------------------------------                                        */
+
+   hiden_block_mark_word
+   {
+      mark_tmp();
+      focus_Wordskip_Prev();
+      hiden_block_begin();
+      focus_Wordskip_Next();
+      hiden_block_End();
+      focus_mark_tmp();
+   }
+
+   Macfind
+   {
+      CoderComplete();
+      hiden_block_mark_word();
+      hiden_block_write_find_string();
+      find();
+   }
+
+   Macreplace
+   {
+      CoderComplete();
+      hiden_block_mark_word();
+      hiden_block_write_find_string();
+      replace();
+   }
+
+   Macfind_repeat
+   {
+      CoderComplete();
+      find_repeat();
+   }
+
+   Macfind_repeat_backward
+   {
+      CoderComplete();
+      find_repeat_backward();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      draw
+   --------------------------------------------------------------------------------                                        */
+
+   Macdraw
+   {
+      CoderComplete();
+      draw();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      key_macro
+   --------------------------------------------------------------------------------                                        */
+
+   Mackey_macro_record
+   {
+      CoderComplete();
+      key_macro_record();
+   }
+
+   Mackey_macro_replay
+   {
+      CoderComplete();
+      key_macro_replay();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      test
+   --------------------------------------------------------------------------------                                        */
+
+   iter_call_back_1
+   {
+      type_in_string("Hello");
+      Cursorpos_adjust();
+   }
+
+   Mactest1
+   {
+      task_iterate(iter_call_back_1);
+   }
+
+   Mactest2
+   {
+      type_in_string("[SAN] $p$g");
+      Cursorpos_adjust();
+   }
+
+   Mactest3
+   {
+      os_fork(0,1,2);
+   }
+
+   Mactest4
+   {
+   }
+
+   Mactest5
+   {
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      OS
+   --------------------------------------------------------------------------------                                        */
+
+   Macos_fork_shell
+   {
+      CoderComplete();
+      os_fork_shell(0);
+   }
+
+   Macos_fork_indirect
+   {
+      CoderComplete();
+      os_fork_indirect(1);
+   }
+
+   Macos_fork_f5
+   {
+      CoderComplete();
+      os_fork("f5 %d %i %n %e %p",1);
+   }
+
+   Macos_fork_f6
+   {
+      CoderComplete();
+      os_fork("f6 %d %i %n %e %p",1);
+   }
+
+   Macos_fork_f7
+   {
+      CoderComplete();
+      os_fork("f7 %d %i %n %e %p",1);
+   }
+
+   Macos_fork_f8
+   {
+      CoderComplete();
+      os_fork("f8 %d %i %n %e %p",1);
+   }
+
+
+%%
+
+   field "common"
+
+      MacOK              : !sca-OK    | !sca-pad_OK           ;
+      MacCancel             : !sca-esc                                 ;
+
+      MacCursorLeft               : !sca-Left     | !sca-pad_Left  | c-s     ;
+      MacCursorRight              : !sca-Right    | !sca-pad_Right | c-d     ;
+      MacCursorUp                 : !sca-Up       | !sca-pad_Up    | c-e     ;
+      MacCursorDown               : !sca-Down     | !sca-pad_Down  | c-x     ;
+      MacCursorpage_Up            : !sca-pgUp     | !sca-pad_pgUp  | c-r     ;
+      MacCursorpage_Down          : !sca-pgdn     | !sca-pad_pgdn  | c-c     ;
+      MacCursorHome               : !sca-Home     | !sca-pad_Home  | c-q,-s  ;
+      MacCursorEnd                : !sca-End      | !sca-pad_End   | c-q,-d  ;
+
+      MacCursorLeftAcc           : c!sa-Left     | c!sa-pad_Left  | c-a     ;
+      MacCursorRightAcc          : c!sa-Right    | c!sa-pad_Right | c-f     ;
+      MacCursorUpAcc             : c!sa-Up       | c!sa-pad_Up              ;
+      MacCursorDownAcc           : c!sa-Down     | c!sa-pad_Down            ;
+      MacCursorpage_UpAcc        : c!sa-pgUp     | c!sa-pad_pgUp  | c-q,-r  ;
+      MacCursorpage_DownAcc      : c!sa-pgdn     | c!sa-pad_pgdn  | c-q,-c  ;
+      MacCursorHomeAcc           : c!sa-Home     | c!sa-pad_Home  | c-q,-e  ;
+      MacCursorEndAcc            : c!sa-End      | c!sa-pad_End   | c-q,-x  ;
+
+      MacInsertToggle     : !sca-ins      | !sca-pad_ins   | c-v     ;
+      MacMetaCodePageNext       : s!ca-space    | !sca-hangul              ;
+
+   field "user_string"
+
+      MacCharDeletePrev  : !sca-backspace                           ;
+      MacCharDeleteNext  : !sca-del      | !sca-pad_del   | c-g     ;
+      MacWordDeleteNext  : c!sa-del      | c!sa-pad_del   | c-t     ;
+      MacLineDelete       :                                  c-y     ;
+      MacLineDeleteRest  : a!cs-d                         | c-q,-y  ;
+
+      MacSpcDialog           : a!sc-g        | !sca-f4                  ;
+      Machanja_box         : !sca-hanja                               ;
+

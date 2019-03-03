@@ -1,0 +1,191 @@
+#
+#  qwerty.kn  -- key name list
+#  Kyuhyun Park
+#  1994.11.1
+#
+
+#
+#  ATTENTION !
+#
+#  Users should not modify this file.
+#        ----------
+
+#
+#  shift keys
+#
+
+rshift                          0x0100
+lshift                          0x0101
+rcontrol                        0x0102
+lcontrol                        0x0103
+ralt                            0x0104
+lalt                            0x0105
+rmachine                        0x0106
+lmachine                        0x0107
+num_lock                        0x0108
+caps_lock                       0x0109
+
+#
+#  character keys
+#                                                                                                                /*
+
+a00             "`"    "~"      0x0200
+a01             "1"    "!"      0x0201
+a02             "2"    "@"      0x0202
+a03             "3"    "#"      0x0203
+a04             "4"    "$"      0x0204
+a05             "5"    "%"      0x0205
+a06             "6"    "^"      0x0206
+a07             "7"    "&"      0x0207
+a08             "8"    "*"      0x0208
+a09             "9"    "("      0x0209
+a10             "0"    ")"      0x020a
+a11             "-"    "_"      0x020b
+a12             "="    "+"      0x020c
+a13             "\\"   "|"      0x020d
+a14                             0x020e
+a15                             0x020f
+
+b00             q               0x0220
+b01             w               0x0221
+b02             e               0x0222
+b03             r               0x0223
+b04             t               0x0224
+b05             y               0x0225
+b06             u               0x0226
+b07             i               0x0227
+b08             o               0x0228
+b09             p               0x0229
+b10             "["    "{"      0x022a
+b11             "]"    "}"      0x022b
+b12                             0x022c
+b13                             0x022d
+b14                             0x022e
+b15                             0x022f
+
+c00             a               0x0240
+c01             s               0x0241
+c02             d               0x0242
+c03             f               0x0243
+c04             g               0x0244
+c05             h               0x0245
+c06             j               0x0246
+c07             k               0x0247
+c08             l               0x0248
+c09             ";"    ":"      0x0249
+c10             "'"    "\""     0x024a
+c11                             0x024b
+c12                             0x024c
+c13                             0x024d
+c14                             0x024e
+c15                             0x024f
+
+d00             z               0x0260
+d01             x               0x0261
+d02             c               0x0262
+d03             v               0x0263
+d04             b               0x0264
+d05             n               0x0265
+d06             m               0x0266
+d07             ","    "<"      0x0267
+d08             "."    ">"      0x0268
+d09             "/"    "?"      0x0269
+d10                             0x026a
+d11                             0x026b
+d12                             0x026c
+d13                             0x026d
+d14                             0x026e
+d15                             0x026f
+
+#
+#  character keys on keypad
+#
+
+pad_0                           0x0300
+pad_1                           0x0301
+pad_2                           0x0302
+pad_3                           0x0303
+pad_4                           0x0304
+pad_5                           0x0305
+pad_6                           0x0306
+pad_7                           0x0307
+pad_8                           0x0308
+pad_9                           0x0309
+pad_slash        "pad_/"        0x030a
+pad_asterisk     "pad_*"        0x030b
+pad_minus        "pad_-"        0x030c
+pad_plus         "pad_+"        0x030d
+pad_period       "pad_."        0x030e
+
+#
+#  special keys
+#
+
+esc                             0x0400
+backspace                       0x0401
+tab                             0x0402
+enter                           0x0403
+space                           0x0404
+insert                          0x0405
+delete                          0x0406
+print_screen                    0x0407
+scroll_lock                     0x0408
+pause                           0x0409
+sys_req                         0x040a
+break                           0x040b
+
+hangul                          0x040d
+hanja                           0x040e
+
+#
+#  special keys on keypad
+#
+
+pad_enter                       0x0503
+pad_insert                      0x0505
+pad_delete                      0x0506
+pad_clear                       0x050c
+
+#
+#  movement keys
+#
+
+up                              0x0600
+down                            0x0601
+left                            0x0602
+right                           0x0603
+page_up                         0x0604
+page_down                       0x0605
+home                            0x0606
+end                             0x0607
+
+#
+#  movement keys on keypad
+#
+
+pad_up                          0x0700
+pad_down                        0x0701
+pad_left                        0x0702
+pad_right                       0x0703
+pad_page_up                     0x0704
+pad_page_down                   0x0705
+pad_home                        0x0706
+pad_end                         0x0707
+
+#
+#  function keys
+#
+
+f1                              0x0800
+f2                              0x0801
+f3                              0x0802
+f4                              0x0803
+f5                              0x0804
+f6                              0x0805
+f7                              0x0806
+f8                              0x0807
+f9                              0x0808
+f10                             0x0809
+f11                             0x080a
+f12                             0x080b
+

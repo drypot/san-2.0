@@ -1,0 +1,28 @@
+#
+#  mc.mif
+#
+#  kyuhyun park
+#
+
+.path.l   = ..\mc
+.path.y   = ..\mc
+.path.cpp = ..\mc
+.path.c   = ..\mc;..\mc\tmp
+
+obj_list = \
+   $(obj_dir)\scanner.obj\
+   $(obj_dir)\parser.obj\
+   $(obj_dir)\glb.obj\
+   $(obj_dir)\main.obj\
+   $(obj_dir)\keyname.obj\
+   $(obj_dir)\func.obj\
+   $(obj_dir)\compiler.obj\
+
+target_exe = $(bin_dir)\mc.exe
+
+$(obj_dir)\scanner.obj : ..\mc\tmp\scanner.c
+..\mc\tmp\scanner.c : ..\mc\scanner.l ..\mc\tmp\parser.h
+..\mc\tmp\parser.h  : ..\mc\parser.y
+
+$(obj_dir)\parser.obj : ..\mc\tmp\parser.c
+..\mc\tmp\parser.c : ..\mc\parser.y

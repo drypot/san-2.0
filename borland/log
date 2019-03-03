@@ -1,0 +1,9 @@
+
+exception message
+func: pub/io.cpp/cls_file::open
+info: No such file or directory
+
+func: fnt/hnjfnt.cpp/ctor()
+info: font loading error
+file: 
+

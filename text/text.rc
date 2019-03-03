@@ -1,0 +1,101 @@
+                                                                                                                        /*
+--------------------------------------------------------------------------------
+   text\text.rc
+   copyright(C) KyuHyun park
+   1996.01.01
+--------------------------------------------------------------------------------                                        */
+
+#define  def_id_main_res   0x0001
+
+#define  def_idm_file                     0x0100
+#define     def_idm_new                   0x0101
+#define     def_idm_open                  0x0102
+#define     def_idm_open_johab            0x0103
+#define     def_idm_open_wansung          0x0104
+#define     def_idm_save                  0x0105
+#define     def_idm_save_as               0x0106
+#define     def_idm_save_all              0x0107
+#define     def_idm_save_and_close        0x0108
+#define     def_idm_close                 0x0109
+#define     def_idm_close_all             0x010A
+#define     def_idm_discard               0x010B
+#define     def_idm_discard_all           0x010C
+#define     def_idm_prev                  0x010D
+#define     def_idm_next                  0x010E
+#define     def_idm_quit                  0x010F
+#define  def_idm_edit                     0x0200
+#define     def_idm_undo                  0x0201
+#define     def_idm_redo                  0x0202
+#define     def_idm_copy                  0x0203
+#define     def_idm_cut                   0x0204
+#define     def_idm_paste                 0x0205
+#define     def_idm_delete                0x0206
+#define  def_idm_help                     0x0300
+#define     def_idm_keys_help             0x0301
+#define     def_idm_about                 0x0302
+
+#define  def_idm_sepa                     0x8000
+
+#ifdef RC_INVOKED
+
+#define INCL_PM
+#include <os2.h>
+
+POINTER  def_id_main_res  "../text/text.ico"
+
+MENU def_id_main_res
+{
+   SUBMENU "~File",                    def_idm_file
+   {
+      MENUITEM "~New",                 def_idm_new
+      MENUITEM "~Open\tAlt-O",         def_idm_open
+      MENUITEM "Open ~Johab",          def_idm_open_johab
+      MENUITEM "Open ~Wansung",        def_idm_open_wansung
+      MENUITEM "",                     def_idm_sepa, MIS_SEPARATOR
+      MENUITEM "~Save\tAlt-S",         def_idm_save
+      MENUITEM "Save ~As\tAlt-V",      def_idm_save_as
+      MENUITEM "Save A~ll\tAlt-Y",     def_idm_save_all
+      MENUITEM "Save ~& Close\tF4",     def_idm_save_and_close
+      MENUITEM "",                     def_idm_sepa, MIS_SEPARATOR
+      MENUITEM "~Close",               def_idm_close
+//      MENUITEM "Close All",            def_idm_close_all
+      MENUITEM "~Discard\tAlt-Q",      def_idm_discard
+//      MENUITEM "Discard All",          def_idm_discard_all
+      MENUITEM "",                     def_idm_sepa, MIS_SEPARATOR
+      MENUITEM "P~revious\tAlt-P",     def_idm_prev,
+      MENUITEM "Ne~xt\tAlt-N",         def_idm_next,
+      MENUITEM "",                     def_idm_sepa, MIS_SEPARATOR
+      MENUITEM "~Quit\tAlt-X",         def_idm_quit
+   }
+
+   SUBMENU "Edit",                     def_idm_edit
+   {
+      MENUITEM "~Undo\tAlt-Backspace",        def_idm_undo
+      MENUITEM "~Redo\tAlt-Shift-Backspace",  def_idm_redo
+      /*
+      MENUITEM "",                     def_idm_sepa, MIS_SEPARATOR
+      MENUITEM "~Copy",                def_idm_copy
+      MENUITEM "Cu~t",                 def_idm_cut
+      MENUITEM "~Paste",               def_idm_paste
+      MENUITEM "~Delete",              def_idm_delete
+      */
+   }
+
+   SUBMENU "~Help",                    def_idm_help
+   {
+      MENUITEM "~Keys Help",           def_idm_keys_help
+      MENUITEM "",                     def_idm_sepa, MIS_SEPARATOR
+      MENUITEM "~About",               def_idm_about
+   }
+}
+
+#endif
+
+
+
+
+
+
+
+
+

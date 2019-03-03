@@ -1,0 +1,1 @@
+bcc -sm -k- -N- -P -c -Ii:\bcos2\include -I.. -Ddef_debug -ntmp -H -Hc -H=obj\pch\p %1 > result

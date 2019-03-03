@@ -1,0 +1,45 @@
+                                                                                                                        /*
+--------------------------------------------------------------------------------
+   yesnodlg.mac
+
+   Kyuhyun Park
+
+   1994.11.21
+   1995.01.12  10.06  10.15
+--------------------------------------------------------------------------------                                        */
+
+   OK
+   Cancel
+
+   Yes
+   No
+   Toggle
+
+%%
+
+   MacYes
+   {
+      Yes();
+      OK();
+   }
+
+   MacNo
+   {
+      No();
+      OK();
+   }
+
+%%
+
+   OK                      : !sca-Enter    | !sca-PadEnter              ;
+   Cancel                  : !sca-Esc                                   ;
+
+   MacYes                  : -Y ;
+   MacNo                   : -N ;
+
+   Toggle                  : !sca-Left     | !sca-PadLeft     | c-S     |
+                             !sca-Right    | !sca-PadRight    | c-D     |
+                             !sca-Up       | !sca-PadUp       | c-E     |
+                             !sca-Down     | !sca-PadDown     | c-X     |
+                             -Space                                     ;
+

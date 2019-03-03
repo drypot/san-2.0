@@ -1,0 +1,44 @@
+File block.cpp:
+         paper_insert(1);
+      paper_insert(p_src_paper_, 0, p_src_paper_->lineLen());
+      paper_insert_linebelow();
+      paper_insert(p_src_paper_, 0, p_src_paper_->lineLen());
+File paper.cpp:
+void cls_doc::paper_insert(int32 cnt)
+   paper_insert(iter.get_x(), cnt);
+void cls_doc::paper_insert(cls_paper* p, int32 inx2, int32 cnt)
+   paper_insert(iter.get_x(), p, inx2, cnt);
+void cls_doc::paper_insert(int32 inx, cls_paper_char_dary* p, int32 cnt)
+      paper_insert (inx+insert_size+diff, -diff);
+   cdoc->paper_insert_line();
+   cdoc->paper_insert_line_below();
+      if (insert_flg) cdoc->paper_insert(iter.get_vx() - vx);
+      cdoc->paper_insert(iter.get_vx());
+File undo.cpp:
+   def_log_paper_insert_line,
+   def_log_paper_insert_line_below,
+   def_log_paper_insert,
+   def_log_paper_insert_paper,
+   def_log_paper_insert_paper_char_dary,
+void cls_doc::log_paper_insert_line()
+      frame.type = def_log_paper_insert_line;
+void cls_doc::log_paper_insert_line_below()
+      frame.type = def_log_paper_insert_line_below;
+void cls_doc::log_paper_insert(int32 inx, int32 cnt)
+      frame.type = def_log_paper_insert;
+void cls_doc::log_paper_insert_paper (int32 inx, int32 cnt)
+      frame.type = def_log_paper_insert_paper;
+void cls_doc::log_paper_insert_paper_char_dary(int32 inx, int32 cnt)
+      frame.type = def_log_paper_insert_paper_char_dary;
+            case def_log_paper_insert_line :
+            case def_log_paper_insert_line_below :
+               paper_insert_line();
+               paper_insert(0,char_dary,len);
+               paper_insert_line_below();
+               paper_insert(0,char_dary,len);
+            case def_log_paper_insert :
+            case def_log_paper_insert_paper :
+            case def_log_paper_insert_paper_char_dary :
+               paper_insert(frame.index, char_dary, len);
+File write.cpp:
+   if (insert_flg) cdoc->paper_insert (1);

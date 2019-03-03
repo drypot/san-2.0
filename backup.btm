@@ -1,0 +1,12 @@
+except (borland\obj watcom\obj ibm\obj) del *.bak /s /q
+
+zip e:\backup\%1 pub\*.* cnt\*.* net\*.* fnt\*.* vio\*.* key\*.* win\*.* mc\*.* text\*.* term\*.* tool\*.*
+@rem zip e:\backup\%1 tool\dos\*.*
+@rem zip e:\backup\%1 test\*.* test\os2\*.* test\pm\*.* test\win\*.*
+
+zip e:\backup\%1 watcom\*.* ibm\*.* borland\*.* etc\*.* macro\*.* *.doc backup.btm
+@rem zip -r e:\backup\%1 doc\*.* clip\*.*
+
+copy e:\backup\%1.zip a:
+
+

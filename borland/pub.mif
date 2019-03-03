@@ -1,0 +1,28 @@
+#
+#  pub.mif
+#
+#  kyuhyun park
+#
+
+.path.l   = ..\pub
+.path.c   = ..\pub\tmp
+.path.cpp = ..\pub;..\pub\tmp
+
+target_lib = $(pub_lib)
+
+obj_list = \
+   px_$(obj_dir)\init.obj\
+   px_$(obj_dir)\process.obj\
+   px_$(obj_dir)\char.obj\
+   px_$(obj_dir)\string.obj\
+   px_$(obj_dir)\memory.obj\
+   px_$(obj_dir)\dir.obj\
+   px_$(obj_dir)\io.obj\
+   px_$(obj_dir)\buf.obj\
+   px_$(obj_dir)\env.obj\
+   px_$(obj_dir)\misc.obj\
+   px_$(obj_dir)\lex.obj\
+   px_$(obj_dir)\time.obj\
+   px_$(obj_dir)\tab.obj\
+   px_$(obj_dir)\ini.obj\
+

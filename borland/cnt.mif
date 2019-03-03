@@ -1,0 +1,13 @@
+#
+#  cnt.mif
+#
+#  Kyuhyun Park
+#
+
+.path.cpp = ..\cnt
+
+target_lib = $(cnt_lib)
+
+obj_list = \
+   px_$(obj_dir)\paper.obj\
+

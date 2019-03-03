@@ -1,0 +1,27 @@
+#
+#  tool.mif
+#
+#  Kyuhyun Park
+#
+
+!if $(tar) == unknown
+!error target must be specified.
+!endif
+
+.path.cpp  = ..\tool
+.path.l    = ..\tool
+.path.c    = ..\tool;..\tool\tmp
+.path.asm  = ..\tool
+
+#bin2src_obj_list = $(obj_dir)\bin2src.obj $(wildargv_obj)
+#grepc_obj_list   = $(obj_dir)\grepc.obj $(wildargv_obj)
+#mkmcp_obj_list   = $(obj_dir)\mkmcp.obj
+
+!if $(tar) == mkfdef
+obj_list  = $(obj_dir)\mkfdef.obj $(obj_dir)\mkfdefl.obj
+!endif
+
+target_exe = $(bin_dir)\$(tar).exe
+
+$(obj_dir)\mkfdefl.obj : ..\tool\tmp\mkfdefl.c
+..\tool\tmp\mkfdefl.c : ..\tool\mkfdefl.l

@@ -1,0 +1,16 @@
+#
+#  win.mif
+#
+#  Kyuhyun Park
+#
+
+.path.cpp = ..\win
+
+target_lib = $(win_lib)
+
+obj_list = \
+   px_$(obj_dir)\spcdlg.obj\
+
+   #px_$(obj_dir)\window.obj\
+
+

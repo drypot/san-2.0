@@ -1,0 +1,27 @@
+#
+#  makeexe.mif
+#
+#  kyuhyun park
+#
+
+main : erase $(target_exe)
+
+erase :
+   @if exist $(target_exe) del /q $(target_exe)
+
+!ifdef target_res
+
+$(target_exe) : $(obj_list) $(target_res)
+   $(link) @&&!
+   $(link_opt) $(startup_obj) $(obj_list), $<, , $(user_lib_list) $(std_lib_list)
+!
+   rc -nologo $(target_res) $<
+
+!else
+
+$(target_exe) : $(obj_list)
+   $(link) @&&!
+   $(link_opt) $(startup_obj) $**, $<, , $(user_lib_list) $(std_lib_list)
+!
+
+!endif

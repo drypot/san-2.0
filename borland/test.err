@@ -1,0 +1,8 @@
+i:\IBMCPP\INCLUDE\stdio.h(169): Error! E498: (col 63) syntax error before '__va_list'; probable cause: incorrectly spelled type name 
+i:\IBMCPP\INCLUDE\stdio.h(169): Note! N393: (col 63) included from test.cpp(1) 
+i:\IBMCPP\INCLUDE\stdio.h(170): Error! E498: (col 54) syntax error before '__va_list'; probable cause: incorrectly spelled type name 
+i:\IBMCPP\INCLUDE\stdio.h(171): Error! E498: (col 63) syntax error before '__va_list'; probable cause: incorrectly spelled type name 
+i:\IBMCPP\INCLUDE\stdio.h(321): Error! E121: (col 7) syntax error 
+test.cpp(23): Error! E029: (col 10) symbol 'xmsg' has not been declared 
+test.cpp(33): Error! E498: (col 11) syntax error before 'xmsg'; probable cause: incorrectly spelled type name 
+test.cpp(37): Error! E624: (col 4) catch block does not immediately follow try block 

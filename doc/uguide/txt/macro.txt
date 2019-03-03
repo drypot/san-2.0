@@ -1,0 +1,317 @@
+
+매크로 프로그래밍 입문
+1995.02.07
+박규현
+----------------------
+
+이 글은 매크로 프로그래밍을 예제 중심으로 쉽게 설명합니다.
+정확한 용어의 정의는 기술 설명서를 참고하시기 바랍니다.
+
+매크로 컴파일러 입력 화일들
+---------------------------
+
+   매크로 컴파일러는 네 가지 화일을 입력받고, 이진 화일을 출력한다.
+
+   가상키 리스트
+   -------------
+
+   이 화일은 키 프로그래밍 시에 사용되는 가상키의 이름과 코드
+   대조표가 나타나 있다. 키 프로그래밍 시에 참조해야 하며
+   사용자는 이 화일의 내용을 변경해서는 안된다.
+
+   가상키 리스트 일부 (MACRO₩QWERTY.KL)
+
+   r_shift                         0x0100
+   l_shift                         0x0101
+   r_ctrl                          0x0102
+   l_ctrl                          0x0103
+   .
+   .
+   .
+
+   a04             "4"    "$"      0x0204
+   a05             "5"    "%"      0x0205
+   a06             "6"    "^"      0x0206
+   a07             "7"    "&"      0x0207
+   a08             "8"    "*"      0x0208
+   a09             "9"    "("      0x0209
+   a10             "0"    ")"      0x020A
+   .
+   .
+   .
+
+   b00             q               0x0220
+   b01             w               0x0221
+   b02             e               0x0222
+   b03             r               0x0223
+   b04             t               0x0224
+   b05             y               0x0225
+   .
+   .
+   .
+
+   esc                             0x0400
+   backspace                       0x0401
+   tab                             0x0402
+   enter                           0x0403
+   space                           0x0404
+   insert          ins             0x0405
+   delete          del             0x0406
+   .
+   .
+   .
+
+   기본 함수명 리스트
+   ------------------
+
+   미리 정의 되어 있는 함수명을 나열해 놓고 있다.
+   사용자 함수 정의 시에는 대부분 이 기본 함수를 이용한다.
+   사용자는 이 화일의 내용을 변경해서는 안된다.
+
+   기본 함수명 리스트의 일부 (MACRO₩SAN.FL)
+
+   focus_char_prev
+   focus_char_next
+
+   focus_line_prev
+   focus_line_next
+
+   focus_page_prev
+   focus_page_next
+   .
+   .
+   .
+
+   char_remove
+   char_erase
+   char_flip
+   char_lower
+   char_upper
+   .
+   .
+
+   사용자 함수 정의 화일
+   ---------------------
+
+   기본 함수를 이용해서 프로그래밍된 사용자 정의 함수가
+   들어갈 화일이다. 산 꾸러미 배포시 이미 추가 함수가
+   들어 있다. 사용자 정의 함수는 이 화일의 끝 부분에 추가로
+   코딩한다.
+
+   함수 정의 화일 일부 (MACRO₩SAN.F)
+
+   focus_empty_line_skip_prev
+   {
+      if (focus_line_prev())
+      {
+         while (line_empty_inq() && !focus_first_line_inq()) focus_line_prev();
+         if (!line_empty_inq()) focus_line_next();
+      }
+   }
+
+   focus_empty_line_skip_next
+   {
+      while (line_empty_inq() && !focus_last_line_inq()) focus_line_next();
+   }
+
+   키 바인딩 정의 화일
+   -------------------
+
+   편집 명령에 사용되는 키열과 수행될 함수명을 연결하는 연결 수식이
+   나열되어 있는 화일이다. 함수 프로그래밍은 복잡하게 보일 수 있으나
+   키 바인딩은 일반 사용자도 쉽게 변경할 수 있다. 이 화일의 내용을
+   수정해서 자신이 자주 사용하는 프로그램의 키 배열에 산의 작동을
+   맞출수 있다.
+
+   키 바인딩 정의 화일 일부 (macro₩san.kb)
+
+   .
+   .
+   .
+   mac_task_open                 :           a!sc-o ;
+   mac_task_open_file            : c-k,-e |  a!sc-r | !sca-f3 ;
+   mac_file_save                 : c-k,-s |  a!sc-s | !sca-f2 ;
+   mac_file_save_all             :           a!sc-y ;
+   mac_file_name                 : c-k,-f |  a!sc-w ;
+   mac_task_close                : c-k,-d |  a!sc-e | a!sc-f3 ;
+   mac_task_close_all            :           a!sc-x ;
+   mac_task_discard              : c-k,-q |  a!sc-q ;
+   mac_task_prev                 :           a!sc-p ;
+   mac_task_next                 :           a!sc-n ;
+
+   mac_focus_char_prev           : c!sa-s | !sca-left    | !sca-pad_left      ;
+   mac_focus_char_next           : c!sa-d | !sca-right   | !sca-pad_right     ;
+
+   mac_focus_line_prev           : c!sa-e | !sca-up      | !sca-pad_up        ;
+   mac_focus_line_next           : c!sa-x | !sca-down    | !sca-pad_down      ;
+   .
+   .
+   .
+
+
+함수 프로그래밍
+---------------
+
+   함수는 함수 이름과 함수 몸체로 구성된다.
+
+   함수 이름은
+   알파벳이나 숫자, 믿줄 문자로 구성될 수 있으며, 이름의 시작은
+   알파벳이나 믿줄 문자가 되어야 한다. 함수 이름을 정의 할 때는
+   씨언어에서와 같이 리턴 타입이나 인자 리스트를 적지 못한다.
+
+   함수 몸체는 중괄호로 둘러 쌓여 있으며, 함수가 수행할 절차를
+   기술한다.
+
+   산 꾸러미에 들어 있는 추가 함수들을 예로 삼아 중요한 사항을
+   하나 하나 설명한다.
+
+   예1) 함수 형태
+
+   task_open_common
+   {
+      task_job_finish();
+      task_open();
+   }
+
+   mac_task_open
+   {
+      coder_complete();
+      task_open_common();
+   }
+
+   위에서는 task_open_common 과 mac_task_open 이라는 함수를 정의 했다.
+   몸체는 중괄호로 묶었으며, 몸체에서 다른 함수를 호출할 때는
+   전달될 인자가 없더라도 괄호를 꼭 붙여야 한다. 함수 호출 문장의
+   끝은 세미콜론으로
+   마감한다. 세미콜론으로 구분 된다면 한 줄에 여러개의 함수 호출 문장이
+   올 수 있다.
+
+   mac_task_open 함수에서 2개의 함수를 호출하는데 coder_complete 는
+   기본 함수이고 task_open_common 은 바로 위에서 정의한 추가 함수이다.
+   기본 함수와 추가 함수의 호출방식에는 차이가 없다.
+
+   산에 꾸러미에 기본으로 제공되는 추가함수들 중에는 이름이 mac_ 으로
+   시작되는 것이 많다. mac_ 으로 시작되는 함수들은 편집 키열에의해
+   바로 호출되어 수행되는 함수들이고, 그렇지 않은 것은 mac_ 함수들에
+   의해 호출되는 보조 함수들이다. 위의 예에서 mac_task_open 은
+   Alt-O 키 입력에 의해 바로 호출이 되는 함수이고 task_open_common 은
+   mac_task_open 과 기타 다른 함수 안에서 사용되는 함수이다.
+
+   예2) 입력 상황과 기본 함수
+
+   mac_cursor_left
+   {
+      coder_complete();
+      cursor_left();
+   }
+
+   mac_focus_char_prev
+   {
+      coder_complete();
+      focus_char_prev();
+      cursor_pos_adjust();
+   }
+
+   에디터 동작 중에는 여러 가지 입력 상황이 존재한다. 가장 많이 사용되는
+   편집 상황과, 상태 라인 아래에서 문장을 입력 받는 상황, 특수 문자
+   입력 상자가 나와 있는 상황등이 존재하며, 이들은
+   모두 다른 입력 상황으로 처리된다.
+
+   그러므로, 각 상황에서 사용되는 키열과 함수등이 모두 정의 되어야 하는데
+   각 입력 상황에서 수행 가능한 기본 함수의 종류가 모두 같은 것이 아니다.
+   특수 문자 입력 상황에서 블럭 삭제와 같은 기본 함수 수행을 요구하는
+   것은 아무 의미가 없다.
+
+   위의 예는 모두 커서를 좌측으로 이동 시키는 함수를 정의한 것이다.
+   mac_cursor_left 는 입력 상자나 화면 아래의 한줄 입력행 등에서
+   사용되는 것이고 mac_focus_char_prev 는 편집 상태에서 사용되는 것이다.
+   여기서 보면, 같은 죄표 이동에 관계된 함수라도 각각 cursor_left,
+   focus_char_prev 로 다른 기본 함수가 사용된다는 것을 알 수 있다.
+
+
+   예3) coder_complete
+
+   가장 많이 사용되는 기본 함수가 coder_complete 이다.
+   이 기본 함수는 한글과 같은 조합 문자의 조합 입력 작업을
+   마무리하는 기능을 한다.
+   즉, 대부분의 편집 기능에는 이 coder_complete
+   명령이 선행되서 일단 조합작업을 끝내야 한다.
+
+   만약, 이 조합 작업이 끝나지 않은 상태로 focus 이동명령을
+   수행하면 커서를 따라 현재 조합 중인 문자 (예로 '현') 가 계속
+   입력된다.
+
+   예4) focus, cursor, window position
+
+   mac_focus_char_prev
+   {
+      coder_complete();
+      focus_char_prev();
+      cursor_pos_adjust();
+   }
+
+   mac_focus_page_next
+   {
+      focus_far_move_common();
+      focus_page_next();
+      window_pos_adjust();
+   }
+
+   mac_focus_line_indirect
+   {
+      focus_far_move_common();
+      focus_line_indirect();
+      cursor_pos_adjust();
+   }
+
+   편집 화면에는 3가지 좌표가 존재한다. focus 는 화일 수정 작업의
+   초점이 된다. 이것은 실제로 화면에 나타나는 커서 위치와 꼭 일치하지
+   않는다. 보통, 함수 수행중에는 이 focus가 필요에 따라 변하며,
+   함수 수행을 마치는 단계에서 focus 위치에 따라 cursor 위치를
+   조정하는 작업을 하게된다.
+
+   mac_focus_char_prev 에서는 일단 문자 조합 작업을 마치고 (coder_complete),
+   focus 를 한문자 만큼 앞으로 이동 시킨후(focus_char_prev), focus 위치에 맞게
+   cursor 위치를 조정했다(cursor_pos_adjust).
+
+   때에 따라서 focus 가 변하더라도 cursor 위치를 변화 시키지 않고,
+   window 의 위치를 변화 시켜서 focus 와 cursor 의 위치를 동기화
+   할 수 있다. 여기서 말하는 window 는 작업 영역의 일부를 보여주는
+   편집화면이다. 예로 페이지 단위 이동 명령에서는 (Ctrl-R/Ctrl-C)
+   커서 위치가 변하지 않는다.
+
+   만약 cursor 위치의 조종 많으로 focus 와 cursor 를 동기화 시키지
+   못한다면 자동적으로 window 위치도 변경한다. 그러므로, 특별한
+   경우가 아닌 이상 focus 이동 후에는 cursor_pos_adjust() 함수를
+   호출하는 것으로 충분하다.
+
+   위의 예는 3 가지 이동 명령을 보인 것이다. focus_far_move_common 은
+   같은 화일에 정의 되어 있는 추가 함수로
+   이전 위치로 되돌아 가는 작업을 위해서
+   현재 focus 의 위치를 기록하는 기능을 한다.
+
+
+   예5) 조건문
+
+   mac_hangul_code_next
+   {
+      coder_complete();
+      if (hangul_code_fixed_inq()) hangul_code_combi();
+      else hangul_code_fixed();
+   }
+
+   mac_indent_toggle
+   {
+      coder_complete();
+      if (indent_inq()) indent_off();
+      else indent_on();
+   }
+
+   focus_empty_line_skip_next
+   {
+      while (line_empty_inq() && !focus_last_line_inq()) focus_line_next();
+   }
+
+   
+
+

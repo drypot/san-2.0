@@ -1,0 +1,21 @@
+#
+#  key.mif
+#
+#  kyuhyun park
+#
+
+.path.cpp = ..\key
+
+target_lib = $(key_lib)
+
+obj_list = \
+   px_$(obj_dir)\key.obj\
+   px_$(obj_dir)\keyevent.obj\
+   px_$(obj_dir)\mac.obj\
+   px_$(obj_dir)\mcp.obj\
+   px_$(obj_dir)\mc.obj\
+   px_$(obj_dir)\hancoder.obj\
+   px_$(obj_dir)\engcoder.obj\
+   px_$(obj_dir)\coder.obj\
+
+

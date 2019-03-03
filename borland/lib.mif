@@ -1,0 +1,15 @@
+#
+#  makelib.mif
+#
+#  kyuhyun park
+#
+
+dep_obj_list = $(obj_list:px_=)
+lib_obj_list = $(obj_list:px_=+)
+
+main : $(dep_obj_list)
+   @if exist $(target_lib) del $(target_lib)
+   $(lib) @&&!
+   $(lib_opt) $(target_lib) $(lib_obj_list)
+!
+

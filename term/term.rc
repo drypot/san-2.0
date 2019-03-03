@@ -1,0 +1,60 @@
+                                                                                                                        /*
+--------------------------------------------------------------------------------
+   term\term.rc
+   copyright(C) KyuHyun park
+   1996.01.01
+--------------------------------------------------------------------------------                                        */
+
+#define  def_id_main_res   0x0001
+
+#define  def_idm_file                     0x0100
+#define     def_idm_open                  0x0101
+#define     def_idm_close                 0x0102
+#define     def_idm_quit                  0x0103
+#define  def_idm_snd                      0x0200
+#define     def_idm_snd_txt               0x0201
+#define     def_idm_snd_bin               0x0202
+#define     def_idm_snd_zmd               0x0203
+#define  def_idm_rcv                      0x0300
+#define     def_idm_rcv_txt               0x0301
+#define     def_idm_rcv_bin               0x0302
+#define     def_idm_rcv_zmd               0x0303
+#define  def_idm_help                     0x0400
+#define     def_idm_about                 0x0401
+
+#ifdef RC_INVOKED
+
+POINTER  def_id_main_res  "../term/term.ico"
+
+MENU def_id_main_res
+{
+   SUBMENU "~File",               def_idm_file
+   {
+      /*
+      MENUITEM "~open port_",     def_idm_open
+      MENUITEM "~close port_",    def_idm_close
+      */
+      MENUITEM "~Quit\tAlt-X",    def_idm_quit
+   }
+
+   SUBMENU "~Send",               def_idm_snd
+   {
+      MENUITEM "~Text",           def_idm_snd_txt
+      MENUITEM "~Binary",         def_idm_snd_bin
+      MENUITEM "~Zmodem\tPgUp",   def_idm_snd_zmd
+   }
+
+   SUBMENU "~Receive",            def_idm_rcv
+   {
+      MENUITEM "~Text\tAlt-L",    def_idm_rcv_txt
+      MENUITEM "~Binary",         def_idm_rcv_bin
+      MENUITEM "~Zmodem\tPgDn",   def_idm_rcv_zmd
+   }
+
+   SUBMENU "~Help",               def_idm_help
+   {
+      MENUITEM "~About",          def_idm_about
+   }
+}
+
+#endif

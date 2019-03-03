@@ -1,0 +1,9 @@
+#ifdef def__hpp
+#error '/.hpp' duplicated.
+#endif
+
+#define def__hpp
+
+#ifndef def_pub_config_hpp
+#include <pub/config.hpp>
+#endif

@@ -1,0 +1,26 @@
+#
+#  term.mif
+#
+#  kyuhyun park
+#
+
+.path.cpp = ..\term;..\net;..\key;..\vio
+
+target_res = ..\term\tmp\term.res
+target_exe = $(bin_dir)\term.exe
+
+obj_list = \
+   $(net_obj_dir)\comport.obj\
+   $(vio_obj_dir)\textimg.obj\
+   $(vio_obj_dir)\textbrd.obj\
+   $(obj_dir)\config.obj\
+   $(obj_dir)\screen.obj\
+   $(obj_dir)\port.obj\
+   $(obj_dir)\termin.obj\
+   $(obj_dir)\termout.obj\
+   $(obj_dir)\file.obj\
+   $(obj_dir)\glb.obj\
+   $(obj_dir)\main.obj\
+
+..\term\tmp\term.res : ..\term\term.rc
+

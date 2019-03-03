@@ -1,0 +1,34 @@
+#
+#  test.mif
+#
+#  kyuhyun park
+#
+
+.path.cpp = .;../term;../pub;../net;../key;../mac;../vio;../win
+
+target_exe = $(tar).exe
+
+!if $(tar) == scan
+obj_list = \
+   $(win_obj_dir)\window.obj\
+   $(tar).obj
+
+!elif $(tar) == test01
+obj_list = \
+   $(win_obj_dir)\window.obj\
+   $(tar).obj
+
+!elif $(tar) == test_spcdlg
+obj_list = \
+   $(win_obj_dir)\spcdlg.obj\
+   $(tar).obj
+
+!elif $(tar) == test_hnjdlg
+obj_list = \
+   $(win_obj_dir)\hnjdlg.obj\
+   $(tar).obj
+
+!else
+obj_list = $(tar).obj
+!endif
+

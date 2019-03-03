@@ -1,0 +1,152 @@
+cmd_focus_prev_word           ctrl-a ;
+                              ctrl-b ;
+cmd_focus_next_page           ctrl-c ;
+cmd_focus_next_char           ctrl-d ;
+cmd_focus_prev_line           ctrl-e ;
+cmd_focus_next_word           ctrl-f ;
+cmd_char_remove_next          ctrl-g ;
+cmd_char_remove_prev          ctrl-h ;
+                              ctrl-i ;
+cmd_focus_line                ctrl-j ;
+                              ctrl-k ; below
+cmd_find_repeat               ctrl-l ;
+                              ctrl-m ;
+cmd_line_spilt                ctrl-n ;
+                              ctrl-o ; below
+cmd_write_literal             ctrl-p ;
+                              ctrl-q ; below
+cmd_focus_prev_page           ctrl-r ;
+cmd_focus_prev_char           ctrl-s ;
+cmd_word_remove_next          ctrl-t ;
+cmd_focus_prev_mark           ctrl-u ;
+cmd_mode_toggle_insert        ctrl-v ;
+cmd_window_scroll_up          ctrl-w ;
+cmd_focus_next_line           ctrl-x ;
+cmd_line_remove               ctrl-y ;
+cmd_window_scroll_down        ctrl-z ;
+
+                              ctrl-k,-a ;
+cmd_block_set_begin           ctrl-k,-b ;
+cmd_block_copy                ctrl-k,-c ;
+cmd_doc_close                 ctrl-k,-d ;
+cmd_doc_open                  ctrl-k,-e ;
+cmd_doc_save_as               ctrl-k,-f ;
+                              ctrl-k,-g ;
+cmd_block_toggle_enabled      ctrl-k,-h ;
+cmd_block_shift_right         ctrl-k,-i ;
+                              ctrl-k,-j ;
+cmd_block_set_end             ctrl-k,-k ;
+                              ctrl-k,-l ;
+                              ctrl-k,-m ;
+cmd_block_arrange             ctrl-k,-n ;
+                              ctrl-k,-o ;
+cmd_block_mark_para           ctrl-k,-p ;
+cmd_doc_discard               ctrl-k,-q ;
+cmd_block_read                ctrl-k,-r ;
+cmd_doc_save                  ctrl-k,-s ;
+cmd_block_mark_word           ctrl-k,-t ;
+cmd_block_shift_left          ctrl-k,-u ;
+cmd_block_move                ctrl-k,-v ;
+cmd_block_write               ctrl-k,-w ;
+                              ctrl-k,-x ;
+cmd_block_remove              ctrl-k,-y ;
+                              ctrl-k,-z ;
+
+cmd_code_change               ctrl-o,-c ;
+cmd_mode_toggle_indent        ctrl-o,-i ;
+cmd_mode_toggle_smart_tab     ctrl-o,-t ;
+cmd_mode_toggle_unindent      ctrl-o,-u ;
+
+cmd_replace                   ctrl-q,-a ;
+cmd_focus_block_set_begin     ctrl-q,-b ;
+cmd_focus_doc_end             ctrl-q,-c ;
+cmd_focus_line_end            ctrl-q,-d ;
+cmd_focus_window_top          ctrl-q,-e ;
+cmd_find                      ctrl-q,-f ;
+                              ctrl-q,-g ;
+                              ctrl-q,-h ;
+                              ctrl-q,-i ;
+                              ctrl-q,-j ;
+cmd_focus_block_set_end       ctrl-q,-k ;
+                              ctrl-q,-l ;
+                              ctrl-q,-m ;
+cmd_line_insert               ctrl-q,-n ;
+cmd_line_insert_below         ctrl-q,-o ;
+cmd_focus_prev_mark           ctrl-q,-p ;
+                              ctrl-q,-q ;
+cmd_focus_doc_begin           ctrl-q,-r ;
+cmd_focus_line_begin          ctrl-q,-s ;
+                              ctrl-q,-t ;
+                              ctrl-q,-u ;
+                              ctrl-q,-v ;
+                              ctrl-q,-w ;
+cmd_focus_window_bottom       ctrl-q,-x ;
+cmd_line_remove_rest          ctrl-q,-y ;
+                              ctrl-q,-z ;
+
+cmd_focus_next_para           ctrl-shift-c ;
+cmd_block_shift_right         ctrl-shift-i ;
+cmd_focus_prev_para           ctrl-shift-r ;
+cmd_block_shift_left          ctrl-shift-u ;
+
+cmd_block_marking_char        alt-a ;
+cmd_block_set_begin           alt-b ;
+cmd_block_copy                alt-c ;
+cmd_draw                      alt-d ;
+cmd_block_set_end             alt-e ;
+                              alt-f ;
+cmd_write_special             alt-g ;
+                              alt-h ;
+                              alt-i ;
+cmd_line_join                 alt-j ;
+cmd_block_marking_column      alt-k ;
+cmd_block_marking_line        alt-l ;
+cmd_block_move                alt-m ;
+cmd_doc_next                  alt-n ;
+cmd_doc_open                  alt-o ;
+cmd_doc_prev                  alt-p ;
+cmd_doc_discard               alt-q ;
+cmd_block_read                alt-r ;
+cmd_doc_save                  alt-s ;
+cmd_block_mark_word           alt-t ;
+cmd_block_toggle_enabled      alt-u ;
+cmd_doc_save_as               alt-v ;
+cmd_block_write               alt-w ;
+cmd_quit                      alt-x ;
+cmd_doc_save_all              alt-y ;
+                              alt-z ;
+
+cmd_focus_mark_0              ctrl-0 ;
+cmd_focus_mark_1              ctrl-1 ;
+cmd_focus_mark_2              ctrl-2 ;
+cmd_focus_mark_3              ctrl-3 ;
+cmd_focus_mark_4              ctrl-4 ;
+cmd_focus_mark_5              ctrl-5 ;
+cmd_focus_mark_6              ctrl-6 ;
+cmd_focus_mark_7              ctrl-7 ;
+cmd_focus_mark_8              ctrl-8 ;
+cmd_focus_mark_9              ctrl-9 ;
+
+cmd_mark_0                    ctrl-shift-0 ;
+cmd_mark_1                    ctrl-shift-1 ;
+cmd_mark_2                    ctrl-shift-2 ;
+cmd_mark_3                    ctrl-shift-3 ;
+cmd_mark_4                    ctrl-shift-4 ;
+cmd_mark_5                    ctrl-shift-5 ;
+cmd_mark_6                    ctrl-shift-6 ;
+cmd_mark_7                    ctrl-shift-7 ;
+cmd_mark_8                    ctrl-shift-8 ;
+cmd_mark_9                    ctrl-shift-9 ;
+
+cmd_indent                    tab ;
+cmd_unindent                  shift-tab ;
+cmd_line_indent               ctrl-tab ;
+cmd_line_unindent             ctrl-shift-tab ;
+
+cmd_undo                      alt-backspace ;
+cmd_redo                      alt-shift-backspace ;
+
+cmd_doc_save                  f2 ;
+cmd_doc_save_and_close        f4 ;
+
+cmd_block_arrange_para        ctrl-f5 ;

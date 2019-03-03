@@ -1,0 +1,8 @@
+@call mk prj=pub type=lib %$
+@call mk prj=cnt type=lib %$
+@call mk prj=fnt type=lib %$
+@call mk prj=vio type=lib %$
+@call mk prj=key type=lib %$
+
+
+

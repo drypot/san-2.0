@@ -1,0 +1,23 @@
+alias nmd `if not exist %1 md %1`
+alias mdpf  `nmd %1 & nmd %1\0 & nmd %1\1 & nmd %1\2`
+alias mdprj `nmd %1 & mdpf %1\cui & mdpf %1\owl`
+
+nmd obj
+
+mdprj obj\pch
+mdprj obj\pub
+mdprj obj\cnt
+mdprj obj\net
+mdprj obj\fnt
+mdprj obj\key
+mdprj obj\win
+mdprj obj\tool
+mdprj obj\test
+
+nmd obj\san & mdpf obj\san\owl
+nmd obj\mc  & mdpf obj\mc\cui
+
+unalias nmd
+unalias mdpf
+unalias mdprj
+

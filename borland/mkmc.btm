@@ -1,0 +1,1 @@
+@call mk prj=mc pf=vio type=exe %$

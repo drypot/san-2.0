@@ -1,0 +1,40 @@
+cd \pub
+grepc %1 %2 *.*
+
+cd \cnt
+grepc %1 %2 *.*
+
+cd \net
+grepc %1 %2 *.*
+
+cd \fnt
+grepc %1 %2 *.*
+
+cd \vio
+grepc %1 %2 *.*
+
+cd \key
+grepc %1 %2 *.*
+
+cd \mac
+grepc %1 %2 *.*
+
+cd \win
+grepc %1 %2 *.*
+
+cd \text
+grepc %1 %2 *.*
+
+cd \term
+grepc %1 %2 *.*
+
+cd \mc
+grepc %1 %2 *.*
+
+rem cd \tool
+rem grepc %1 %2 *.*
+
+rem cd \test
+rem grepc %1 %2 *.*
+
+cd \borland

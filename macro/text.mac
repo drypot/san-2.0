@@ -1,0 +1,1614 @@
+                                                                                                                        /*
+--------------------------------------------------------------------------------
+   text.mac
+   Kyuhyun Park
+   1994.11.21
+--------------------------------------------------------------------------------                                        */
+
+   quit
+
+   doc_new
+   doc_open
+   doc_open_johab
+   doc_open_wansung
+   doc_save
+   doc_save_as
+   doc_close
+   doc_close_all
+   doc_discard
+   doc_discard_all
+   doc_prev
+   doc_next
+   doc_list
+   doc_iterate
+
+   doc_pick_list
+   doc_print
+   doc_is_modifed
+
+   fork
+   fork_shell
+
+   focus_prev_char
+   focus_next_char
+
+   focus_prev_line
+   focus_next_line
+
+   focus_prev_page
+   focus_next_page
+
+   focus_line_begin
+   focus_line_end
+
+   focus_doc_begin
+   focus_doc_end
+
+   focus_block_begin
+   focus_block_end
+
+   focus_window_top
+   focus_window_mid
+   focus_window_bottom
+
+   focus_skip_prev_word
+   focus_skip_next_word
+
+   focus_skip_prev_non_word
+   focus_skip_next_non_word
+
+   focus_skip_prev_space
+   focus_skip_next_space
+
+   focus_mark
+   focus_prev_mark
+   focus_tmp_mark
+
+   focus_line
+   focus_column
+
+   focus_match
+
+   window_scroll_left
+   window_scroll_right
+   window_scroll_up
+   window_scroll_down
+
+   cursor_adjust
+   window_adjust
+
+   focus_is_column_one
+   focus_is_line_head
+   focus_is_line_out
+   focus_is_first_line
+   focus_is_last_line
+   focus_is_window_top
+   focus_is_window_bottom
+   focus_is_in_block
+
+   focus_get_line_num
+   focus_get_column_num
+
+   mark
+   mark_prev
+   mark_tmp
+
+   write_date
+   write_time
+   write_string
+   write_literal
+   write_special
+   write_hanja
+
+   char_remove
+   char_erase
+
+   char_flip
+   char_lower
+   char_upper
+
+   line_insert
+   line_insert_below
+
+   line_remove
+   line_remove_below
+
+   line_split
+   line_join
+
+   line_indent
+   line_unindent
+
+   line_align_prev
+   line_align_left
+   line_align_right
+   line_align_center
+
+   line_is_empty
+   line_is_space_from
+   line_is_space_till
+
+   block_set_char_type
+   block_set_line_type
+   block_set_column_type
+
+   block_set_marking
+   block_is_marking
+
+   block_set_enabled
+   block_is_enabled
+   block_is_enabled_existent
+
+   block_set_begin
+   block_set_end
+   block_expand
+
+   block_remove
+
+   block_fill
+
+   block_flip
+   block_lower
+   block_upper
+
+   block_align_left
+   block_align_right
+   block_align_center
+
+   block_indent
+   block_unindent
+
+   block_shift_left
+   block_shift_right
+
+   hiden_block_set_begin
+   hiden_block_set_end
+   hiden_block_remove
+   hiden_block_set_find_string
+
+   buffer_reset
+   buffer_read_block
+   buffer_read_block_arranging
+   buffer_write_block
+   buffer_read_file
+   buffer_write_file
+
+   clipboard_reset
+   clipboard_read_block
+   clipboard_write_block
+
+   find
+   find_replace
+   find_repeat
+   find_repeat_backward
+
+   draw
+
+   mcp_next
+
+   coder_is_flushed
+
+   code_set_wansung
+   code_set_johab
+   code_is_johab
+
+   mode_set_insert
+   mode_is_insert
+
+   mode_set_indent
+   mode_is_indent
+
+   mode_set_unindent
+   mode_is_unindent
+
+   mode_set_wrap
+   mode_is_wrap
+
+   mode_set_show_match
+   mode_is_show_match
+
+   mode_set_smart_tab
+   mode_is_smart_tab
+
+   info_quick_help
+   info_char
+
+   log_undo
+   log_reset
+   log_redo
+
+   key_macro_record
+   key_macro_replay
+
+   no_operation
+   test1
+   test2
+   test3
+   test4
+   test5
+
+   /*
+   split_window_horizontal
+   split_window_vertical
+   zoom_window
+   close_window
+   one_window
+   resize_window
+
+   focus_left_window
+   focus_right_window
+   focus_above_window
+   focus_below_window
+   focus_next_window
+   focus_prev_window
+   */
+
+%%
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      doc
+   --------------------------------------------------------------------------------                                        */
+
+   mac_doc_iter_cb_save
+   {
+      if (doc_is_modifed())
+      {
+         doc_save();
+         //log_reset();
+      }
+   }
+
+   cmd_quit
+   {
+      if (doc_close_all()) quit();
+   }
+
+   cmd_doc_new
+   {
+      doc_new();
+   }
+
+   cmd_doc_open
+   {
+      doc_open();
+   }
+
+   cmd_doc_pick_list
+   {
+      doc_pick_list();
+   }
+
+   cmd_doc_save
+   {
+      doc_save();
+      //log_reset();
+   }
+
+   cmd_doc_save_all
+   {
+      doc_iterate(mac_doc_iter_cb_save);
+   }
+
+   cmd_doc_save_as
+   {
+      doc_save_as();
+   }
+
+   cmd_doc_save_and_close
+   {
+      if (doc_save())
+      {
+         doc_close();
+      }
+   }
+
+   cmd_doc_close
+   {
+      doc_close();
+   }
+
+   cmd_doc_discard
+   {
+      doc_discard();
+   }
+
+   cmd_doc_prev
+   {
+      doc_prev();
+   }
+
+   cmd_doc_next
+   {
+      doc_next();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      OS
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_fork_shell
+   {
+      fork_shell(0);
+   }
+
+   cmd_fork
+   {
+      fork(1);
+   }
+
+   cmd_fork_f5
+   {
+      fork("f5 %d %i %n %e %p",1);
+   }
+
+   cmd_fork_f6
+   {
+      fork("f6 %d %i %n %e %p",1);
+   }
+
+   cmd_fork_f7
+   {
+      fork("f7 %d %i %n %e %p",1);
+   }
+
+   cmd_fork_f8
+   {
+      fork("f8 %d %i %n %e %p",1);
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      focus
+   --------------------------------------------------------------------------------                                        */
+
+   mac_focus_far_move_common
+   {
+      mark_prev();
+   }
+
+   mac_focus_prev_word
+   {
+      focus_skip_prev_non_word();
+      focus_skip_prev_word();
+   }
+
+   mac_focus_next_word
+   {
+      focus_skip_next_word();
+      focus_skip_next_non_word();
+   }
+
+   mac_focus_next_word_end
+   {
+      focus_skip_next_non_word();
+      focus_skip_next_word();
+   }
+
+   mac_focus_advanced_line_begin
+   {
+      focus_column(1);
+      cursor_adjust();
+      focus_line_begin();
+   }
+
+   mac_focus_skip_prev_non_empty_line
+   {
+      if (focus_prev_line())
+      {
+         while (!line_is_empty() && !focus_is_first_line()) focus_prev_line();
+         if (line_is_empty()) focus_next_line();
+      }
+   }
+
+   mac_focus_skip_next_non_empty_line
+   {
+      while (!line_is_empty() && !focus_is_last_line()) focus_next_line();
+   }
+
+   mac_focus_skip_prev_empty_line
+   {
+      if (focus_prev_line())
+      {
+         while (line_is_empty() && !focus_is_first_line()) focus_prev_line();
+         if (!line_is_empty()) focus_next_line();
+      }
+   }
+
+   mac_focus_skip_next_empty_line
+   {
+      while (line_is_empty() && !focus_is_last_line()) focus_next_line();
+   }
+
+   mac_focus_prev_para
+   {
+      mac_focus_skip_prev_empty_line();
+      mac_focus_skip_prev_non_empty_line();
+   }
+
+   mac_focus_next_para
+   {
+      mac_focus_skip_next_non_empty_line();
+      mac_focus_skip_next_empty_line();
+   }
+
+   cmd_focus_prev_char
+   {
+      focus_prev_char();
+      cursor_adjust();
+   }
+
+   cmd_focus_next_char
+   {
+      focus_next_char();
+      cursor_adjust();
+   }
+
+   cmd_focus_prev_line
+   {
+      focus_prev_line();
+      cursor_adjust();
+   }
+
+   cmd_focus_next_line
+   {
+      focus_next_line();
+      cursor_adjust();
+   }
+
+   cmd_focus_prev_page
+   {
+      mac_focus_far_move_common();
+      focus_prev_page();
+      window_adjust();
+   }
+
+   cmd_focus_next_page
+   {
+      mac_focus_far_move_common();
+      focus_next_page();
+      window_adjust();
+   }
+
+   cmd_focus_line_begin
+   {
+      mac_focus_far_move_common();
+      if (line_is_space_till())
+      {
+         focus_column(1);
+      }
+      else
+      {
+         mac_focus_advanced_line_begin();
+      }
+      cursor_adjust();
+   }
+
+   cmd_focus_line_end
+   {
+      mac_focus_far_move_common();
+      focus_line_end();
+      cursor_adjust();
+   }
+
+   cmd_focus_doc_begin
+   {
+      mac_focus_far_move_common();
+      focus_doc_begin();
+      cursor_adjust();
+   }
+
+   cmd_focus_doc_end
+   {
+      mac_focus_far_move_common();
+      focus_doc_end();
+      cursor_adjust();
+   }
+
+   cmd_focus_block_set_begin
+   {
+      mac_focus_far_move_common();
+      focus_block_begin();
+      cursor_adjust();
+   }
+
+   cmd_focus_block_set_end
+   {
+      mac_focus_far_move_common();
+      focus_block_end();
+      cursor_adjust();
+   }
+
+   cmd_focus_prev_word
+   {
+      mac_focus_far_move_common();
+      if (line_is_space_till())
+      {
+         if (focus_is_first_line()) return;
+         focus_prev_line();
+         focus_line_end();
+      }
+      mac_focus_prev_word();
+      cursor_adjust();
+   }
+
+   cmd_focus_next_word
+   {
+      mac_focus_far_move_common();
+      if (line_is_space_from())
+      {
+         if (focus_is_last_line()) return;
+         focus_next_line();
+         focus_column(1);
+      }
+      mac_focus_next_word_end();
+      cursor_adjust();
+   }
+
+   cmd_focus_prev_para
+   {
+      mac_focus_far_move_common();
+      mac_focus_prev_para();
+      cursor_adjust();
+   }
+
+   cmd_focus_next_para
+   {
+      mac_focus_far_move_common();
+      mac_focus_next_para();
+      cursor_adjust();
+   }
+
+   cmd_focus_window_top
+   {
+      mac_focus_far_move_common();
+      focus_window_top();
+      cursor_adjust();
+   }
+
+   cmd_focus_window_mid
+   {
+      mac_focus_far_move_common();
+      focus_window_mid();
+      cursor_adjust();
+   }
+
+   cmd_focus_window_bottom
+   {
+      mac_focus_far_move_common();
+      focus_window_bottom();
+      cursor_adjust();
+   }
+
+   cmd_focus_line
+   {
+      mac_focus_far_move_common();
+      focus_line();
+      cursor_adjust();
+   }
+
+   cmd_focus_column
+   {
+      mac_focus_far_move_common();
+      focus_column();
+      cursor_adjust();
+   }
+
+   cmd_focus_mark_0 { mac_focus_far_move_common(); focus_mark(0); cursor_adjust(); }
+   cmd_focus_mark_1 { mac_focus_far_move_common(); focus_mark(1); cursor_adjust(); }
+   cmd_focus_mark_2 { mac_focus_far_move_common(); focus_mark(2); cursor_adjust(); }
+   cmd_focus_mark_3 { mac_focus_far_move_common(); focus_mark(3); cursor_adjust(); }
+   cmd_focus_mark_4 { mac_focus_far_move_common(); focus_mark(4); cursor_adjust(); }
+   cmd_focus_mark_5 { mac_focus_far_move_common(); focus_mark(5); cursor_adjust(); }
+   cmd_focus_mark_6 { mac_focus_far_move_common(); focus_mark(6); cursor_adjust(); }
+   cmd_focus_mark_7 { mac_focus_far_move_common(); focus_mark(7); cursor_adjust(); }
+   cmd_focus_mark_8 { mac_focus_far_move_common(); focus_mark(8); cursor_adjust(); }
+   cmd_focus_mark_9 { mac_focus_far_move_common(); focus_mark(9); cursor_adjust(); }
+
+   cmd_focus_prev_mark
+   {
+      focus_prev_mark();
+      cursor_adjust();
+   }
+
+   cmd_window_scroll_up
+   {
+      if (focus_is_window_bottom())
+      {
+         if (window_scroll_up()) focus_prev_line();
+      } else window_scroll_up();
+      cursor_adjust();
+   }
+
+   cmd_window_scroll_down
+   {
+      if (focus_is_window_top())
+      {
+         if (window_scroll_down()) focus_next_line();
+      } else window_scroll_down();
+      cursor_adjust();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      mark
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_mark_0 { mark(0); }
+   cmd_mark_1 { mark(1); }
+   cmd_mark_2 { mark(2); }
+   cmd_mark_3 { mark(3); }
+   cmd_mark_4 { mark(4); }
+   cmd_mark_5 { mark(5); }
+   cmd_mark_6 { mark(6); }
+   cmd_mark_7 { mark(7); }
+   cmd_mark_8 { mark(8); }
+   cmd_mark_9 { mark(9); }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      write
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_write_literal
+   {
+      write_literal();
+      cursor_adjust();
+   }
+
+   cmd_write_special
+   {
+      write_special();
+      cursor_adjust();
+   }
+
+   cmd_write_hanja
+   {
+      if (coder_is_flushed())
+      {
+         focus_prev_char();
+      }
+      write_hanja();
+      cursor_adjust();
+   }
+                                                                                                                          /*
+   --------------------------------------------------------------------------------
+      edition
+   --------------------------------------------------------------------------------                                        */
+
+   mac_line_join_up
+   {
+      if (!focus_is_first_line())
+      {
+         focus_prev_line();
+         focus_line_end();
+         line_join();
+      }
+   }
+
+   mac_space_remove_next
+   {
+      hiden_block_set_begin();
+      focus_skip_next_space();
+      hiden_block_set_end();
+      hiden_block_remove();
+   }
+
+   mac_char_remove_prev
+   {
+      if (focus_prev_char())
+      {
+         if (mode_is_insert()) char_remove();
+         else char_erase();
+      }
+   }
+
+   mac_line_remove_rest
+   {
+      if (!focus_is_line_out())
+      {
+         hiden_block_set_begin();
+         focus_line_end();
+         hiden_block_set_end();
+         hiden_block_remove();
+      }
+   }
+
+   mac_line_erase
+   {
+      focus_column(1);
+      mac_line_remove_rest();
+   }
+
+   cmd_char_remove_prev
+   {
+      if (focus_is_column_one())
+      {
+         mac_line_join_up();
+      }
+      else if (mode_is_smart_tab() && (line_is_empty() || focus_is_line_head()))
+      {
+         line_unindent();
+      }
+      else mac_char_remove_prev();
+      cursor_adjust();
+   }
+
+   cmd_char_remove_next
+   {
+      if (focus_is_line_out())
+      {
+         line_join();
+         mac_space_remove_next();
+      }
+      else char_remove();
+      cursor_adjust();
+   }
+
+   cmd_word_remove_next
+   {
+      if (focus_is_line_out())
+      {
+         line_join();
+         mac_space_remove_next();
+      }
+      else
+      {
+         /*
+         hiden_block_set_begin();
+         mac_focus_next_word();
+         hiden_block_set_end();
+         hiden_block_remove();
+         */
+
+         hiden_block_set_begin();
+         if (focus_skip_next_word()) ;
+         else if (focus_skip_next_space()) ;
+         else focus_next_char();
+         hiden_block_set_end();
+         hiden_block_remove();
+      }
+      cursor_adjust();
+   }
+
+   cmd_line_insert
+   {
+      line_insert();
+   }
+
+   cmd_line_insert_below
+   {
+      line_insert_below();
+      focus_next_line();
+      cursor_adjust();
+   }
+
+   cmd_line_remove
+   {
+      if (focus_is_last_line())
+      {
+         /*if (focus_prev_line()) line_remove_below();
+         else*/
+         mac_line_erase();
+      }
+      else line_remove();
+      cursor_adjust();
+   }
+
+   cmd_line_remove_rest
+   {
+      mac_line_remove_rest();
+   }
+
+   cmd_line_spilt
+   {
+      line_split();
+   }
+
+   cmd_line_join
+   {
+      if (focus_is_line_out())
+      {
+         line_join();
+         mac_space_remove_next();
+         if (!focus_is_line_out())
+         {
+            write_string (" ");
+            focus_prev_char();
+         }
+      }
+      else
+      {
+         mark_tmp();
+         focus_line_end();
+         line_join();
+         mac_space_remove_next();
+         if (!focus_is_line_out()) write_string (" ");
+         focus_tmp_mark();
+      }
+   }
+
+   cmd_enter
+   {
+      if (mode_is_insert())
+      {
+         line_split();
+         focus_column(1);
+         focus_next_line();
+         cursor_adjust();
+         mac_space_remove_next();
+         if (mode_is_indent()) line_align_prev();
+      }
+      else
+      {
+         focus_next_line();
+         if (mode_is_indent()) mac_focus_advanced_line_begin();
+         else focus_column(1);
+      }
+      cursor_adjust();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      block
+   --------------------------------------------------------------------------------                                        */
+
+   mac_block_disable_and_marking_off
+   {
+      block_set_enabled(0);
+      block_set_marking(0);
+   }
+
+   mac_block_marking_common
+   {
+      if (block_is_marking())
+      {
+         block_set_marking(0);
+      }
+      else if (block_is_enabled() && !focus_is_in_block())
+      {
+         block_expand();
+      }
+      else
+      {
+         block_set_enabled(0);
+         block_set_marking(1);
+         block_set_enabled(1);
+      }
+   }
+
+   mac_block_mark_para
+   {
+      mac_block_disable_and_marking_off();
+      block_set_line_type();
+
+      mark_tmp();
+      mac_focus_skip_prev_non_empty_line();
+      block_set_begin();
+      mac_focus_skip_next_non_empty_line();
+      if (line_is_empty()) focus_prev_line();
+      block_set_end();
+      focus_tmp_mark();
+
+      block_set_enabled(1);
+   }
+
+   mac_block_arrange
+   {
+      if (block_is_enabled())
+      {
+         block_set_marking(0);
+         block_set_line_type();
+
+         mark_tmp();
+         focus_block_begin();
+         line_insert();
+         buffer_read_block_arranging();
+         block_remove();
+         buffer_write_block();
+         buffer_reset();
+         line_remove();
+         focus_tmp_mark();
+      }
+   }
+
+   cmd_block_set_begin
+   {
+      mac_block_disable_and_marking_off();
+      block_set_char_type();
+      block_set_begin();
+      block_set_enabled(1);
+   }
+
+   cmd_block_set_end
+   {
+      mac_block_disable_and_marking_off();
+      block_set_char_type();
+      block_set_end();
+
+      block_set_enabled(1);
+   }
+
+   cmd_block_mark_word
+   {
+      mac_block_disable_and_marking_off();
+      block_set_char_type();
+
+      mark_tmp();
+      focus_skip_prev_word();
+      block_set_begin();
+      focus_skip_next_word();
+      block_set_end();
+      focus_tmp_mark();
+
+      block_set_enabled(1);
+   }
+
+   cmd_block_mark_para
+   {
+      mac_block_mark_para();
+   }
+
+   cmd_block_marking_char
+   {
+      block_set_char_type();
+      mac_block_marking_common();
+   }
+
+   cmd_block_marking_line
+   {
+      block_set_line_type();
+      mac_block_marking_common();
+   }
+
+   cmd_block_marking_column
+   {
+      block_set_column_type();
+      mac_block_marking_common();
+   }
+
+   cmd_block_toggle_enabled
+   {
+      if (block_is_enabled()) mac_block_disable_and_marking_off();
+      else block_set_enabled(1);
+   }
+
+   cmd_block_copy
+   {
+      if (block_is_enabled_existent())
+      {
+         block_set_marking(0);
+         buffer_read_block();
+         buffer_write_block();
+         buffer_reset();
+         block_set_enabled(1);
+      }
+   }
+
+   cmd_block_move
+   {
+      if (block_is_enabled_existent())
+      {
+         block_set_marking(0);
+         buffer_read_block();
+         block_remove();
+         buffer_write_block();
+         buffer_reset();
+         block_set_enabled(1);
+         cursor_adjust();
+      }
+   }
+
+   cmd_block_remove
+   {
+      if (block_is_enabled())
+      {
+         block_set_marking(0);
+         block_remove();
+         mac_block_disable_and_marking_off();
+         cursor_adjust();
+      }
+   }
+
+   cmd_block_shift_right
+   {
+      if (block_is_enabled())
+      {
+         block_set_marking(0);
+         block_set_line_type();
+         block_shift_right();
+      }
+      cursor_adjust();
+   }
+
+   cmd_block_shift_left
+   {
+      if (block_is_enabled())
+      {
+         block_set_marking(0);
+         block_set_line_type();
+         block_shift_left();
+      }
+      cursor_adjust();
+   }
+
+   cmd_block_read
+   {
+      if (buffer_read_file())
+      {
+         mac_block_disable_and_marking_off();
+         buffer_write_block();
+         buffer_reset();
+         block_set_enabled(1);
+         cursor_adjust();
+      }
+   }
+
+   cmd_block_write
+   {
+      if (block_is_enabled())
+      {
+         block_set_marking(0);
+         buffer_read_block();
+         buffer_write_file();
+         buffer_reset();
+      }
+   }
+
+   cmd_block_arrange
+   {
+      mac_block_arrange();
+      cursor_adjust();
+   }
+
+   cmd_block_arrange_para
+   {
+      mac_block_mark_para();
+      mac_block_arrange();
+      mac_focus_next_para();
+      cursor_adjust();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_indent
+   {
+      if (block_is_enabled() && focus_is_in_block())
+      {
+         block_set_marking(0);
+         block_set_line_type();
+         block_indent();
+      }
+      else
+      {
+         if (mode_is_smart_tab()) line_indent();
+         else write_string ("\t");
+      }
+      cursor_adjust();
+   }
+
+   cmd_unindent
+   {
+      if (block_is_enabled() && focus_is_in_block())
+      {
+         block_set_marking(0);
+         block_set_line_type();
+         block_unindent();
+      }
+      else
+      {
+         if (mode_is_smart_tab()) line_unindent();
+         else mac_char_remove_prev();
+      }
+      cursor_adjust();
+   }
+
+   cmd_line_indent
+   {
+      line_indent();
+      cursor_adjust();
+   }
+
+   cmd_line_unindent
+   {
+      line_unindent();
+      cursor_adjust();
+   }
+
+                                                                                                                           /*
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_upper
+   {
+      if (block_is_enabled() && focus_is_in_block())
+      {
+         block_set_marking(0);
+         block_upper();
+      }
+      else
+      {
+         char_upper();
+         focus_next_char();
+         cursor_adjust();
+      }
+   }
+
+   cmd_lower
+   {
+      if (block_is_enabled() && focus_is_in_block())
+      {
+         block_set_marking(0);
+         block_lower();
+      }
+      else
+      {
+         char_lower();
+         focus_next_char();
+         cursor_adjust();
+      }
+   }
+
+   cmd_flip
+   {
+      if (block_is_enabled() && focus_is_in_block())
+      {
+         block_set_marking(0);
+         block_flip();
+      }
+      else
+      {
+         char_flip();
+         focus_next_char();
+         cursor_adjust();
+      }
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      clipboard
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_clip_copy
+   {
+      if (block_is_enabled()) clipboard_read_block();
+   }
+
+   cmd_clip_paste
+   {
+      mac_block_disable_and_marking_off();
+      clipboard_write_block();
+      block_set_enabled(1);
+   }
+
+   cmd_clip_cut
+   {
+      if (block_is_enabled())
+      {
+         clipboard_read_block();
+         block_remove();
+         mac_block_disable_and_marking_off();
+         cursor_adjust();
+      }
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      find / replace
+   --------------------------------------------------------------------------------                                        */
+
+   mac_hiden_block_mark_word
+   {
+      mark_tmp();
+      focus_skip_prev_word();
+      hiden_block_set_begin();
+      focus_skip_next_word();
+      hiden_block_set_end();
+      focus_tmp_mark();
+   }
+
+   cmd_find
+   {
+      mac_hiden_block_mark_word();
+      hiden_block_set_find_string();
+      find();
+   }
+
+   cmd_replace
+   {
+      mac_hiden_block_mark_word();
+      hiden_block_set_find_string();
+      find_replace();
+   }
+
+   cmd_find_repeat
+   {
+      find_repeat();
+   }
+
+   cmd_find_repeat_backward
+   {
+      find_repeat_backward();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      draw
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_draw
+   {
+      draw();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      mode
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_code_change
+   {
+      if (code_is_johab()) code_set_wansung();
+      else code_set_johab();
+   }
+
+   cmd_mcp_next
+   {
+      mcp_next();
+   }
+
+   cmd_mode_toggle_insert
+   {
+      if (mode_is_insert()) mode_set_insert(0);
+      else mode_set_insert(1);
+   }
+
+   cmd_mode_toggle_indent
+   {
+      if (mode_is_indent()) mode_set_indent(0);
+      else mode_set_indent(1);
+   }
+
+   cmd_mode_toggle_unindent
+   {
+      if (mode_is_unindent()) mode_set_unindent(0);
+      else mode_set_unindent(1);
+   }
+
+   cmd_mode_toggle_smart_tab
+   {
+      if (mode_is_smart_tab()) mode_set_smart_tab(0);
+      else mode_set_smart_tab(1);
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      log
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_undo
+   {
+      log_undo();
+      cursor_adjust();
+   }
+
+   cmd_redo
+   {
+      log_redo();
+      cursor_adjust();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      key_macro
+   --------------------------------------------------------------------------------                                        */
+
+   cmd_key_macro_record
+   {
+      key_macro_record();
+   }
+
+   cmd_key_macro_replay
+   {
+      key_macro_replay();
+   }
+                                                                                                                           /*
+   --------------------------------------------------------------------------------
+      test
+   --------------------------------------------------------------------------------                                        */
+
+   mac_test1
+   {
+      write_string("Hello");
+      cursor_adjust();
+   }
+
+   cmd_test1
+   {
+      doc_iterate(mac_test1);
+   }
+
+   cmd_test2
+   {
+      write_string("[SAN] $p$g");
+      cursor_adjust();
+   }
+
+   cmd_test3
+   {
+      fork(0,1,2);
+   }
+
+   mac_test4
+   {
+      test4(1,2,3);
+   }
+
+   cmd_test4
+   {
+      test4(1,2);
+      test4();
+      mac_test4();
+   }
+
+   cmd_test5
+   {
+   }
+
+%%
+
+   mode "edit"
+
+      cmd_focus_prev_word           : c!sa-a ;
+                                    //c!sa-b ;
+      cmd_focus_next_page           : c!sa-c ;
+      cmd_focus_next_char           : c!sa-d ;
+      cmd_focus_prev_line           : c!sa-e ;
+      cmd_focus_next_word           : c!sa-f ;
+      cmd_char_remove_next          : c!sa-g ;
+      cmd_char_remove_prev          : c!sa-h ;
+                                    //c!sa-i ;
+      cmd_focus_line                : c!sa-j ;
+                                    //c!sa-k ; below
+      cmd_find_repeat               : c!sa-l ;
+                                    //c!sa-m ;
+      cmd_line_spilt                : c!sa-n ;
+                                    //c!sa-o ; below
+      cmd_write_literal             : c!sa-p ;
+                                    //c!sa-q ; below
+      cmd_focus_prev_page           : c!sa-r ;
+      cmd_focus_prev_char           : c!sa-s ;
+      cmd_word_remove_next          : c!sa-t ;
+      cmd_focus_prev_mark           : c!sa-u ;
+      cmd_mode_toggle_insert        : c!sa-v ;
+      cmd_window_scroll_up          : c!sa-w ;
+      cmd_focus_next_line           : c!sa-x ;
+      cmd_line_remove               : c!sa-y ;
+      cmd_window_scroll_down        : c!sa-z ;
+
+                                    //c!sa-k,-a ;
+      cmd_block_set_begin          : c!sa-k,-b ;
+      cmd_block_copy                : c!sa-k,-c ;
+      cmd_doc_close                 : c!sa-k,-d ;
+      cmd_doc_open                  : c!sa-k,-e ;
+      cmd_doc_save_as               : c!sa-k,-f ;
+                                    //c!sa-k,-g ;
+      cmd_block_toggle_enabled      : c!sa-k,-h ;
+      cmd_block_shift_right         : c!sa-k,-i ;
+                                    //c!sa-k,-j ;
+      cmd_block_set_end            : c!sa-k,-k ;
+                                    //c!sa-k,-l ;
+                                    //c!sa-k,-m ;
+      cmd_block_arrange             : c!sa-k,-n ;
+                                    //c!sa-k,-o ;
+      cmd_block_mark_para           : c!sa-k,-p ;
+      cmd_doc_discard               : c!sa-k,-q ;
+      cmd_block_read                : c!sa-k,-r ;
+      cmd_doc_save                  : c!sa-k,-s ;
+      cmd_block_mark_word           : c!sa-k,-t ;
+      cmd_block_shift_left          : c!sa-k,-u ;
+      cmd_block_move                : c!sa-k,-v ;
+      cmd_block_write               : c!sa-k,-w ;
+                                    //c!sa-k,-x ;
+      cmd_block_remove              : c!sa-k,-y ;
+                                    //c!sa-k,-z ;
+
+      cmd_code_change               : c!sa-o,-c ;
+      cmd_mode_toggle_indent        : c!sa-o,-i ;
+      cmd_mode_toggle_smart_tab     : c!sa-o,-t ;
+      cmd_mode_toggle_unindent      : c!sa-o,-u ;
+
+      cmd_replace                   : c!sa-q,-a ;
+      cmd_focus_block_set_begin     : c!sa-q,-b ;
+      cmd_focus_doc_end             : c!sa-q,-c ;
+      cmd_focus_line_end            : c!sa-q,-d ;
+      cmd_focus_window_top          : c!sa-q,-e ;
+      cmd_find                      : c!sa-q,-f ;
+                                    //c!sa-q,-g ;
+                                    //c!sa-q,-h ;
+                                    //c!sa-q,-i ;
+                                    //c!sa-q,-j ;
+      cmd_focus_block_set_end       : c!sa-q,-k ;
+                                    //c!sa-q,-l ;
+                                    //c!sa-q,-m ;
+      cmd_line_insert               : c!sa-q,-n ;
+      cmd_line_insert_below         : c!sa-q,-o ;
+      cmd_focus_prev_mark           : c!sa-q,-p ;
+                                    //c!sa-q,-q ;
+      cmd_focus_doc_begin           : c!sa-q,-r ;
+      cmd_focus_line_begin          : c!sa-q,-s ;
+                                    //c!sa-q,-t ;
+                                    //c!sa-q,-u ;
+                                    //c!sa-q,-v ;
+                                    //c!sa-q,-w ;
+      cmd_focus_window_bottom       : c!sa-q,-x ;
+      cmd_line_remove_rest          : c!sa-q,-y ;
+                                    //c!sa-q,-z ;
+
+      cmd_focus_next_para           : cs!a-c ;
+      cmd_block_shift_right         : cs!a-i ;
+      cmd_focus_prev_para           : cs!a-r ;
+      cmd_block_shift_left          : cs!a-u ;
+
+      cmd_block_marking_char        : a!sc-a ;
+      cmd_block_set_begin           : a!sc-b ;
+      cmd_block_copy                : a!sc-c ;
+      cmd_draw                      : a!sc-d ;
+      cmd_block_set_end            : a!sc-e ;
+                                    //a!sc-f ;
+      cmd_write_special             : a!cs-g ;
+                                    //a!sc-h ;
+                                    //a!sc-i ;
+      cmd_line_join                 : a!cs-j ;
+      cmd_block_marking_column      : a!sc-k ;
+      cmd_block_marking_line        : a!sc-l ;
+      cmd_block_move                : a!sc-m ;
+      cmd_doc_next                  : a!sc-n ;
+      cmd_doc_open                  : a!sc-o ;
+      cmd_doc_prev                  : a!sc-p ;
+      cmd_doc_discard               : a!sc-q ;
+      cmd_block_read                : a!sc-r ;
+      cmd_doc_save                  : a!sc-s ;
+      cmd_block_mark_word           : a!sc-t ;
+      cmd_block_toggle_enabled      : a!sc-u ;
+      cmd_doc_save_as               : a!cs-v ;
+      cmd_block_write               : a!sc-w ;
+      cmd_quit                      : a!sc-x ;
+      cmd_doc_save_all              : a!sc-y ;
+                                    //a!sc-z ;
+
+      cmd_focus_mark_0              : c!sa-"0" ;
+      cmd_focus_mark_1              : c!sa-"1" ;
+      cmd_focus_mark_2              : c!sa-"2" ;
+      cmd_focus_mark_3              : c!sa-"3" ;
+      cmd_focus_mark_4              : c!sa-"4" ;
+      cmd_focus_mark_5              : c!sa-"5" ;
+      cmd_focus_mark_6              : c!sa-"6" ;
+      cmd_focus_mark_7              : c!sa-"7" ;
+      cmd_focus_mark_8              : c!sa-"8" ;
+      cmd_focus_mark_9              : c!sa-"9" ;
+
+      cmd_mark_0                    : cs!a-"0" ;
+      cmd_mark_1                    : cs!a-"1" ;
+      cmd_mark_2                    : cs!a-"2" ;
+      cmd_mark_3                    : cs!a-"3" ;
+      cmd_mark_4                    : cs!a-"4" ;
+      cmd_mark_5                    : cs!a-"5" ;
+      cmd_mark_6                    : cs!a-"6" ;
+      cmd_mark_7                    : cs!a-"7" ;
+      cmd_mark_8                    : cs!a-"8" ;
+      cmd_mark_9                    : cs!a-"9" ;
+
+      cmd_upper                     : as!a-"1" ;
+      cmd_lower                     : as!a-"2" ;
+      cmd_flip                      : as!a-"3" ;
+                                    //as!a-"4" ;
+                                    //as!a-"5" ;
+                                    //as!a-"6" ;
+                                    //as!a-"7" ;
+                                    //as!a-"8" ;
+                                    //as!a-"9" ;
+                                    //as!a-"0" ;
+
+      #test1                         : as!c-"1" ;
+      #test2                         : as!c-"2" ;
+      #test3                         : as!c-"3" ;
+      #test4                         : as!c-"4" ;
+      #test5                         : as!c-"5" ;
+      #cmd_test1                     : as!c-"6" ;
+      #cmd_test2                     : as!c-"7" ;
+      #cmd_test3                     : as!c-"8" ;
+      #cmd_test4                     : as!c-"9" ;
+      #cmd_test5                     : as!c-"0" ;
+
+      cmd_clip_copy                 : c!sa-k,-"," ;
+      cmd_clip_cut                  : c!sa-k,-"." ;
+      cmd_clip_paste                : c!sa-k,-"/" ;
+
+      //---------------
+
+      cmd_char_remove_prev          : !sca-backspace ;
+      cmd_enter                     : !sca-enter ;
+      cmd_write_hanja               : !sca-hanja ;
+      cmd_mcp_next                  : !sca-hangul ;
+      cmd_indent                    : !sca-tab ;
+
+      cmd_key_macro_replay          : c!sa-enter ;
+      cmd_line_indent               : c!sa-tab ;
+
+      cmd_line_unindent             : cs!a-tab ;
+
+      cmd_mcp_next                  : s!ca-space ;
+      cmd_unindent                  : s!ca-tab ;
+
+      cmd_key_macro_record          : a!sc-enter ;
+      cmd_undo                      : a!sc-backspace ;
+
+      cmd_redo                      : as!c-backspace ;
+
+      //----------------
+
+      cmd_mode_toggle_insert        : !sca-insert ;
+      cmd_char_remove_next          : !sca-delete ;
+
+      cmd_focus_prev_char           : !sca-left ;
+      cmd_focus_next_char           : !sca-right ;
+      cmd_focus_prev_line           : !sca-up ;
+      cmd_focus_next_line           : !sca-down ;
+      cmd_focus_prev_page           : !sca-page_up ;
+      cmd_focus_next_page           : !sca-page_down ;
+      cmd_focus_line_begin          : !sca-home ;
+      cmd_focus_line_end            : !sca-end ;
+
+      cmd_clip_copy                 : c!sa-insert ;
+
+      cmd_focus_prev_word           : c!sa-left ;
+      cmd_focus_next_word           : c!sa-right ;
+      cmd_focus_doc_begin           : c!sa-page_up ;
+      cmd_focus_doc_end             : c!sa-page_down ;
+      cmd_focus_window_top          : c!sa-home ;
+      cmd_focus_window_bottom       : c!sa-end ;
+
+      cmd_clip_cut                  : s!ca-delete ;
+      cmd_clip_paste                : s!ca-insert ;
+
+      //-----------------
+
+      cmd_mode_toggle_insert        : !sca-pad_insert ;
+      cmd_char_remove_next          : !sca-pad_delete ;
+      cmd_enter                     : !sca-pad_enter ;
+
+      cmd_focus_prev_char           : !sca-pad_left ;
+      cmd_focus_next_char           : !sca-pad_right ;
+      cmd_focus_prev_line           : !sca-pad_up ;
+      cmd_focus_next_line           : !sca-pad_down ;
+      cmd_focus_prev_page           : !sca-pad_page_up ;
+      cmd_focus_next_page           : !sca-pad_page_down ;
+      cmd_focus_line_begin          : !sca-pad_home ;
+      cmd_focus_line_end            : !sca-pad_end ;
+
+      cmd_clip_copy                 : c!sa-pad_insert ;
+
+      cmd_focus_prev_word           : c!sa-pad_left ;
+      cmd_focus_next_word           : c!sa-pad_right ;
+      cmd_focus_doc_begin           : c!sa-pad_page_up ;
+      cmd_focus_doc_end             : c!sa-pad_page_down ;
+      cmd_focus_window_top          : c!sa-pad_home ;
+      cmd_focus_window_bottom       : c!sa-pad_end ;
+      cmd_focus_window_mid          : c!sa-pad_clear ;
+
+      cmd_clip_cut                  : s!ca-pad_delete ;
+      cmd_clip_paste                : s!ca-pad_insert ;
+
+      //----------------------
+
+      info_quick_help               : !sca-f1 ;
+      cmd_doc_save                  : !sca-f2 ;
+      //cmd_doc_open                  : !sca-f3 ;
+      cmd_doc_save_and_close        : !sca-f4 ;
+
+      cmd_fork_f5                   : !sca-f5 ;
+      cmd_fork_f6                   : !sca-f6 ;
+      cmd_fork_f7                   : !sca-f7 ;
+      cmd_fork_f8                   : !sca-f8 ;
+
+      cmd_write_hanja               : !sca-f9 ;
+      cmd_fork_shell                : !sca-f10 ;
+      cmd_fork                      : !sca-f11 ;
+
+      #cmd_doc_pick_list             : a!sc-f3 ;
+      #cmd_doc_close                 : a!sc-f3 ;
+
+      cmd_block_arrange_para        : c!sa-f5 ;
+
+      //cmd_doc_new                   :
+      //cmd_doc_pick_list             :
+

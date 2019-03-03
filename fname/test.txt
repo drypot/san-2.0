@@ -1,0 +1,93 @@
+F:\fname\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc
+new dir : abc/*
+F:\fname\abc\abc

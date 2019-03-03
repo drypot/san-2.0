@@ -1,0 +1,417 @@
+                                                                                                                        /*
+--------------------------------------------------------------------------------
+   macro/term.mac
+
+   by Kyuhyun Park
+
+   1995.12.31
+   1996.01.02
+--------------------------------------------------------------------------------                                        */
+
+   next_mcp
+
+   coder_discard
+   coder_complete
+   coder_is_incomplete
+
+   port_write_byte
+   port_write_string
+
+   send_text
+   send_binary
+   send_zmodem
+
+   receive_text
+   receive_binary
+   receive_zmodem
+
+   exit
+
+   chat_mode
+   term_mode
+
+   change_host_code
+   change_local_code
+
+   chat_cursor_left
+   chat_cursor_right
+   chat_cursor_home
+   chat_cursor_end
+
+   chat_cursor_left_acc
+   chat_cursor_right_acc
+
+   chat_insert_on
+   chat_insert_off
+   chat_is_insert_on
+
+   chat_char_delete
+   chat_char_erase
+   chat_word_delete
+   chat_line_delete
+   chat_line_delete_rest
+
+   chat_is_bol
+
+   chat_flush
+
+   //chat_spc_dialog
+   //chat_hja_dialog
+
+   test_func1
+   test_func2
+   test_func3
+
+%%
+
+   mac_send_text
+   {
+      coder_complete();
+      send_text();
+   }
+
+   mac_send_binary
+   {
+      coder_complete();
+      send_binary();
+   }
+
+   mac_send_zmodem
+   {
+      coder_complete();
+      send_zmodem();
+   }
+
+   mac_receive_text
+   {
+      coder_complete();
+      receive_text();
+   }
+
+   mac_receive_binary
+   {
+      coder_complete();
+      receive_binary();
+   }
+
+   mac_receive_zmodem
+   {
+      coder_complete();
+      receive_zmodem();
+   }
+
+   mac_exit
+   {
+      coder_complete();
+      exit();
+   }
+
+   mac_ctrl_00 { coder_complete(); port_write_byte('\^@'); }
+   mac_ctrl_a  { coder_complete(); port_write_byte('\^a'); }
+   mac_ctrl_b  { coder_complete(); port_write_byte('\^b'); }
+   mac_ctrl_c  { coder_complete(); port_write_byte('\^c'); }
+   mac_ctrl_d  { coder_complete(); port_write_byte('\^d'); }
+   mac_ctrl_e  { coder_complete(); port_write_byte('\^e'); }
+   mac_ctrl_f  { coder_complete(); port_write_byte('\^f'); }
+   mac_ctrl_g  { coder_complete(); port_write_byte('\^g'); }
+   mac_ctrl_h  { coder_complete(); port_write_byte('\^h'); }
+   mac_ctrl_i  { coder_complete(); port_write_byte('\^i'); }
+   mac_ctrl_j  { coder_complete(); port_write_byte('\^j'); }
+   mac_ctrl_k  { coder_complete(); port_write_byte('\^k'); }
+   mac_ctrl_l  { coder_complete(); port_write_byte('\^l'); }
+   mac_ctrl_m  { coder_complete(); port_write_byte('\^m'); }
+   mac_ctrl_n  { coder_complete(); port_write_byte('\^n'); }
+   mac_ctrl_o  { coder_complete(); port_write_byte('\^o'); }
+   mac_ctrl_p  { coder_complete(); port_write_byte('\^p'); }
+   mac_ctrl_q  { coder_complete(); port_write_byte('\^q'); }
+   mac_ctrl_r  { coder_complete(); port_write_byte('\^r'); }
+   mac_ctrl_s  { coder_complete(); port_write_byte('\^s'); }
+   mac_ctrl_t  { coder_complete(); port_write_byte('\^t'); }
+   mac_ctrl_u  { coder_complete(); port_write_byte('\^u'); }
+   mac_ctrl_v  { coder_complete(); port_write_byte('\^v'); }
+   mac_ctrl_w  { coder_complete(); port_write_byte('\^w'); }
+   mac_ctrl_x  { coder_complete(); port_write_byte('\^x'); }
+   mac_ctrl_y  { coder_complete(); port_write_byte('\^y'); }
+   mac_ctrl_z  { coder_complete(); port_write_byte('\^z'); }
+   mac_ctrl_1b { coder_complete(); port_write_byte('\^['); }
+   mac_ctrl_1c { coder_complete(); port_write_byte('\^|'); }
+   mac_ctrl_1d { coder_complete(); port_write_byte('\^]'); }
+   mac_ctrl_1e { coder_complete(); port_write_byte('\^^'); }
+   mac_ctrl_1f { coder_complete(); port_write_byte('\^_'); }
+
+   mac_cursor_up     { coder_complete(); port_write_string("\^[[A"); }
+   mac_cursor_down   { coder_complete(); port_write_string("\^[[B"); }
+   mac_cursor_right  { coder_complete(); port_write_string("\^[[C"); }
+   mac_cursor_left   { coder_complete(); port_write_string("\^[[D"); }
+
+   mac_cursor_home   { coder_complete(); port_write_string("\^[[H"); }
+   mac_cursor_end    { coder_complete(); port_write_string("\^[[K"); }
+
+   mac_next_mcp
+   {
+      coder_complete();
+      next_mcp();
+   }
+
+   mac_backspace
+   {
+      if (coder_is_incomplete()) coder_discard();
+      else mac_ctrl_h();
+   }
+
+   mac_chat_mode
+   {
+      coder_complete();
+      chat_mode();
+   }
+
+   mac_term_mode
+   {
+      coder_complete();
+      term_mode();
+   }
+
+   mac_change_host_code
+   {
+      coder_complete();
+      change_host_code();
+   }
+
+   mac_change_local_code
+   {
+      coder_complete();
+      change_local_code();
+   }
+
+   mac_chat_cursor_left
+   {
+      coder_complete();
+      chat_cursor_left();
+   }
+
+   mac_chat_cursor_right
+   {
+      coder_complete();
+      chat_cursor_right();
+   }
+
+   mac_chat_cursor_home
+   {
+      coder_complete();
+      chat_cursor_home();
+   }
+
+   mac_chat_cursor_end
+   {
+      coder_complete();
+      chat_cursor_end();
+   }
+
+   mac_chat_cursor_left_acc
+   {
+      coder_complete();
+      chat_cursor_left_acc();
+   }
+
+   mac_chat_cursor_right_acc
+   {
+      coder_complete();
+      chat_cursor_right_acc();
+   }
+
+   mac_chat_insert_toggle
+   {
+      coder_complete();
+      if (chat_is_insert_on()) chat_insert_off();
+      else chat_insert_on();
+   }
+
+   mac_chat_char_delete_prev
+   {
+      if (coder_is_incomplete())
+      {
+         coder_discard();
+      }
+      else
+      {
+         coder_complete();
+         if (!chat_is_bol())
+         {
+            chat_cursor_left();
+            if (chat_is_insert_on()) chat_char_delete();
+            else chat_char_erase();
+         }
+      }
+   }
+
+   mac_chat_char_delete_next
+   {
+      coder_complete();
+      chat_char_delete();
+   }
+
+   mac_chat_word_delete_next
+   {
+      coder_complete();
+      chat_word_delete();
+   }
+
+   mac_chat_line_delete
+   {
+      coder_complete();
+      chat_line_delete();
+   }
+
+   mac_chat_line_delete_rest
+   {
+      coder_complete();
+      chat_line_delete_rest();
+   }
+
+   mac_chat_flush
+   {
+      coder_complete();
+      chat_flush();
+      port_write_byte('\r');
+   }
+
+   mac_chat_flush_without_cr
+   {
+      coder_complete();
+      chat_flush();
+   }
+
+   /*
+   mac_chat_spcdialog
+   {
+      coder_complete();
+      spcdialog();
+   }
+
+   mac_chat_hanja_box
+   {
+      if (coder_mixinginq())
+      {
+         coder_complete();
+         cursor_left();
+      }
+      hanjadialog();
+   }
+   */
+
+   mac_test_func1
+   {
+      coder_complete();
+      test_func1();
+   }
+
+   mac_test_func2
+   {
+      coder_complete();
+      test_func2();
+   }
+
+   mac_test_func3
+   {
+      coder_complete();
+      test_func1();
+   }
+
+%%
+
+   mode "term"
+
+      mac_exit                   : a!sc-x         ;
+      mac_send_zmodem            : !sca-page_up   | !sca-pad_page_up ;
+      mac_receive_text           : a!sc-l         ;
+      mac_receive_zmodem         : !sca-page_down | !sca-pad_page_down ;
+
+      mac_next_mcp               : s!ca-space     | !sca-hangul     ;
+      mac_change_host_code       : !sca-f2        ;
+      mac_change_local_code      : !sca-f3        ;
+      mac_chat_mode              : !sca-tab       | a!cs-c          ;
+      mac_ctrl_m                 : !sca-enter     | !sca-pad_enter   ;
+      mac_backspace              : !sca-backspace ;
+
+      mac_ctrl_00                : c!a-"@"        ;
+      mac_ctrl_a                 : c!a-a          ;
+      mac_ctrl_b                 : c!a-b          ;
+      mac_ctrl_c                 : c!a-c          ;
+      mac_ctrl_d                 : c!a-d          ;
+      mac_ctrl_e                 : c!a-e          ;
+      mac_ctrl_f                 : c!a-f          ;
+      mac_ctrl_g                 : c!a-g          ;
+      mac_ctrl_h                 : c!a-h          ;
+      mac_ctrl_i                 : c!a-i          ;
+      mac_ctrl_j                 : c!a-j          ;
+      mac_ctrl_k                 : c!a-k          ;
+      mac_ctrl_l                 : c!a-l          ;
+      mac_ctrl_m                 : c!a-m          ;
+      mac_ctrl_n                 : c!a-n          ;
+      mac_ctrl_o                 : c!a-o          ;
+      mac_ctrl_p                 : c!a-p          ;
+      mac_ctrl_q                 : c!a-q          ;
+      mac_ctrl_r                 : c!a-r          ;
+      mac_ctrl_s                 : c!a-s          ;
+      mac_ctrl_t                 : c!a-t          ;
+      mac_ctrl_u                 : c!a-u          ;
+      mac_ctrl_v                 : c!a-v          ;
+      mac_ctrl_w                 : c!a-w          ;
+      mac_ctrl_x                 : c!a-x          ;
+      mac_ctrl_y                 : c!a-y          ;
+      mac_ctrl_z                 : c!a-z          ;
+      mac_ctrl_1b                : c!a-"["        ;
+      mac_ctrl_1c                : c!a-"\\"       ;
+      mac_ctrl_1d                : c!a-"]"        ;
+      mac_ctrl_1e                : c!a-"^"        ;
+      mac_ctrl_1f                : c!a-"_"        ;
+
+      mac_cursor_up              : !sca-up        | !sca-pad_up      ;
+      mac_cursor_down            : !sca-down      | !sca-pad_down    ;
+      mac_cursor_right           : !sca-right     | !sca-pad_right   ;
+      mac_cursor_left            : !sca-left      | !sca-pad_left    ;
+
+      mac_cursor_home            : !sca-home      | !sca-pad_home    ;
+      mac_cursor_end             : !sca-end       | !sca-pad_end     ;
+
+
+      //mac_test_func1           : -f5 ;
+      //mac_test_func2           : -f6 ;
+      //mac_test_func3           : -f7 ;
+
+   mode "chat"
+
+      mac_exit                   : a!sc-x         ;
+      mac_send_zmodem               : !sca-page_up   | !sca-pad_page_up ;
+      mac_receive_text            : a!sc-l                          ;
+      receive_zmodem                : !sca-page_down | !sca-pad_page_down ;
+
+      mac_next_mcp               : s!ca-space     | !sca-hangul     ;
+      mac_change_host_code       : !sca-f2        ;
+      mac_change_local_code      : !sca-f3        ;
+      mac_term_mode              : !sca-tab       | !sca-esc        ;
+
+      mac_chat_cursor_left       : !csa-left      | !csa-pad_left    | c-s    ;
+      mac_chat_cursor_right      : !csa-right     | !csa-pad_right   | c-d    ;
+      mac_chat_cursor_home       : !csa-home      | !csa-pad_home    | c-q,-s ;
+      mac_chat_cursor_end        : !csa-end       | !csa-pad_end     | c-q,-d ;
+      mac_chat_cursor_left_acc   : c!sa-left      | c!sa-pad_left    | c-a    ;
+      mac_chat_cursor_right_acc  : c!sa-right     | c!sa-pad_right   | c-f    ;
+
+      mac_chat_char_delete_prev  : !sca-backspace                            ;
+      mac_chat_char_delete_next  : !sca-delete    | !sca-pad_delete  | c-g    ;
+      mac_chat_word_delete_next  : c!sa-delete    | c!sa-pad_delete  | c-t    ;
+      mac_chat_line_delete       :                                    c-y    ;
+      mac_chat_line_delete_rest  : a!cs-h                           | c-q,-y ;
+
+      mac_chat_insert_toggle     : !sca-insert    | !sca-pad_insert  | c-v    ;
+
+      mac_chat_flush             : !sca-enter     | !sca-pad_enter            ;
+      mac_chat_flush_without_cr  : c!sa-enter     | c!sa-pad_enter            ;
+
+      mac_ctrl_x                 : c!a-x          ;
+      mac_ctrl_z                 : c!a-z          ;
+      mac_ctrl_1b                : c!a-"["        ;
+
+      //mac_chat_spcdialog       : a!sc-g          | !sca-f4                  ;
+      //mac_chat_hanja_box       : !sca-hanja                                 ;

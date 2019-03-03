@@ -1,0 +1,5 @@
+Borland C++ Version 4.11 Copyright (c) 1993, 1994 Borland International
+h:\text\client.cpp:
+Loaded pre-compiled headers.
+Error h:\text\client.cpp 451: Pointer to structure required on left side of -> or ->* in function __syscall client_win_proc(unsigned long,unsigned long,void *,void *)
+*** 1 errors in Compile ***

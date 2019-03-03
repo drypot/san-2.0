@@ -1,0 +1,53 @@
+#
+#  text.mif
+#
+#  kyuhyun park
+#
+
+.path.cpp = ..\text;..\vio;..\win
+
+target_res = ..\text\tmp\text.res
+target_exe = $(bin_dir)\t.exe
+
+#   $(vio_obj_dir)\textimg.obj\
+#   $(vio_obj_dir)\textbrd.obj\
+
+obj_list = \
+   $(obj_dir)\block.obj\
+   $(obj_dir)\buffer.obj\
+   $(obj_dir)\client.obj\
+   $(obj_dir)\config.obj\
+   $(obj_dir)\doc.obj\
+   $(obj_dir)\focus.obj\
+   $(obj_dir)\frame.obj\
+   $(obj_dir)\glb.obj\
+   $(obj_dir)\log.obj\
+   $(obj_dir)\main.obj\
+   $(obj_dir)\mark.obj\
+   $(obj_dir)\mline.obj\
+   $(obj_dir)\mode.obj\
+   $(obj_dir)\msg.obj\
+   $(obj_dir)\paper.obj\
+   $(obj_dir)\pdf.obj\
+   $(obj_dir)\sline.obj\
+   $(obj_dir)\test.obj\
+   $(obj_dir)\view.obj\
+   $(obj_dir)\write.obj\
+   $(win_obj_dir)\spcdlg.obj\
+   $(win_obj_dir)\hnjdlg.obj\
+
+#   $(obj_dir)\draw.obj\
+#   $(obj_dir)\find.obj\
+#
+#   $(obj_dir)\help.obj\
+#   $(obj_dir)\info.obj\
+#   $(obj_dir)\inter.obj\
+#   $(obj_dir)\keymac.obj\
+#
+#   $(obj_dir)\os.obj\
+#   $(obj_dir)\pick.obj\
+
+..\text\tmp\text.res : ..\text\text.rc
+
+
+

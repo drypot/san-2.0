@@ -1,0 +1,56 @@
+                                                                                                                        /*
+--------------------------------------------------------------------------------
+   hnjdlg.mac
+   Kyuhyun Park
+   1994.11.21
+--------------------------------------------------------------------------------                                        */
+
+   enter
+   cancel
+
+   left
+   right
+   up
+   down
+   home
+   end
+   page_up
+   page_down
+
+   left_acc
+   right_acc
+   up_acc
+   down_acc
+   home_acc
+   end_acc
+   page_up_acc
+   page_down_acc
+
+%%
+
+%%
+
+   mode ""
+
+   enter                   : !sca-enter    | !sca-pad_enter             ;
+   cancel                  : !sca-esc                                   ;
+
+   left                    : !sca-left     | !sca-pad_left     | c-s     ;
+   right                   : !sca-right    | !sca-pad_right    | c-d     ;
+   up                      : !sca-up       | !sca-pad_up       | c-e     ;
+   down                    : !sca-down     | !sca-pad_down     | c-x     ;
+   page_up                 : !sca-page_up  | !sca-pad_page_up  | c-r     ;
+   page_down               : !sca-page_down| !sca-pad_page_down| c-c     ;
+   home                    : !sca-home     | !sca-pad_home     | c-q,-s  ;
+   end                     : !sca-end      | !sca-pad_end      | c-q,-d  ;
+
+   left_acc                : c!sa-left     | c!sa-pad_left     | c-a     ;
+   right_acc               : c!sa-right    | c!sa-pad_right    | c-f     ;
+   up_acc                  : c!sa-up       | c!sa-pad_up                 ;
+   down_acc                : c!sa-down     | c!sa-pad_down               ;
+   page_up_acc             : c!sa-page_up  | c!sa-pad_page_up  | c-q,-r  ;
+   page_down_acc           : c!sa-page_down| c!sa-pad_page_down| c-q,-c  ;
+   home_acc                : c!sa-home     | c!sa-pad_home     | c-q,-e  ;
+   end_acc                 : c!sa-end      | c!sa-pad_end      | c-q,-x  ;
+
+   right                   : -space ;

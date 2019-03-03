@@ -1,0 +1,1 @@
+@call mk prj=test type=exe %$

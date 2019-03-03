@@ -1,0 +1,18 @@
+#
+#  fnt.mif
+#
+#  Kyuhyun Park
+#
+
+.path.cpp = ..\fnt
+
+target_lib = $(fnt_lib)
+
+obj_list = \
+   px_$(obj_dir)\hanfnt.obj\
+   px_$(obj_dir)\hnjfnt.obj\
+   px_$(obj_dir)\engfnt.obj\
+   px_$(obj_dir)\spcfnt.obj\
+   px_$(obj_dir)\nulfnt.obj\
+
+

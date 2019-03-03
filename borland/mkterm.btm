@@ -1,0 +1,1 @@
+@call mk prj=term pf=pm type=exe %$
